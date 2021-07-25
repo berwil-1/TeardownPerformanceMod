@@ -1,3 +1,0 @@
-name = Performance Mod v2.0
-author = CoolJWB
-description = [b]This mod has recently been changed, please refresh the website in a while...[/b]
