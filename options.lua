@@ -6,7 +6,7 @@ hook.add("base.init", "performance.init", function()
 	-- Check if the user uses a pre v2 version, if true then switch over to use the newer system.
 	if not HasKey("savegame.mod.version") then
 		ClearKey("savegame.mod")
-		SetFloat("savegame.mod.version", version)
+		SetFloat("savegame.mod.version", 2.0)
 		SetString("savegame.mod.keybind", "p")
 	end
 end)
