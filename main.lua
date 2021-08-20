@@ -2,10 +2,9 @@
 #include "window.lua"
 
 -- Variables
---local initModules = {InitCore, InitWindow}
+local initModules = {InitCore, InitWindow}
 local data = {"Performance Mod", 2.1} -- Data stored in here will follow the format as follows [1]: Mod name [2]: Mod version [3]: Curve presets [4]: Current FPS
-local options = {} -- All the module options will be stored here, you can see the format in the fallbackOptions.
-local fallbackOptions = {
+local options = {{
 	counter = {
 		enabled = false,
 		locked = false,
@@ -31,7 +30,7 @@ local fallbackOptions = {
 		intensityControl = true
 	},
 	cleaner = {
-		enabled = false,
+		enabled = true,
 		locked = false,
 		curve = 1,
 		multiplier = 0.2,
@@ -40,7 +39,7 @@ local fallbackOptions = {
 		removeActiveDebris = true
 	},
 	stabilizer = {
-		enabled = false,
+		enabled = true,
 		locked = false,
 		curve = 1,
 		multiplier = 0.2,
@@ -48,7 +47,7 @@ local fallbackOptions = {
 		stabilizeVisibleDebris = true,
 		stabilizeActiveObjects = false
 	}
-}
+}} -- All the module options will be stored here as follows [1]: Fallback options [2]: Mod options
 
 
 
@@ -66,9 +65,9 @@ hook.add("base.init", "performance.init", function()
 	if HasKey("savegame.mod.options") and GetString("savegame.mod.options") ~= "" then
 		local optionsFound = 0
 		for _ in pairs(util.unserialize(GetString("savegame.mod.options"))) do optionsFound = optionsFound + 1 end
-		options = optionsFound < 4 and fallbackOptions or util.unserialize(GetString("savegame.mod.options"))
+		options[2] = optionsFound < 4 and Clone(options[1]) or util.unserialize(GetString("savegame.mod.options"))
 	else
-		options = fallbackOptions
+		options[2] = Clone(options[1])
 	end
 
 	if GetString("savegame.mod.keybind") == "?" then
@@ -77,27 +76,16 @@ hook.add("base.init", "performance.init", function()
 
 	-- Initialize the functions used to draw curves or increase values in different ways.
 	data[3] = {
-		{"CONSTANT", function(value) return options.cleaner.fallbackSize end},
+		{"CONSTANT", function(value) return options[2].cleaner.fallbackSize end},
 		{"LINEAR", function(value) return math.max(60 - value, 0) end},
 		{"EXPONENTIAL", function(value) return math.max(30.07462 - (0.00003718851 / -0.1998865) * (1 - math.exp(1) ^ (0.1998865 * value)), 0) end},
 		{"INVERSE", function(value) return 3.48986 * 10 ^ 12 * value ^ -7.491398 end}
 	}
 
-	-- Initialize the functions used to draw curves or increase values in different ways.
-	data[3] = {
-		{"CONSTANT", function(value) return options.cleaner.fallbackSize end},
-		{"LINEAR", function(value) return math.max(60 - value, 0) end},
-		{"EXPONENTIAL", function(value) return math.max(30.07462 - (0.00003718851 / -0.1998865) * (1 - math.exp(1) ^ (0.1998865 * value)), 0) end},
-		{"INVERSE", function(value) return 3.48986 * 10 ^ 12 * value ^ -7.491398 end}
-	}
-	
 	-- Make init function calls to the required modules.
-	InitCore(data, options)
-	InitWindow(data, options)
-
-	-- for module in initModules do
-	-- 	module(data, options)
-	-- end
+	for index,module in pairs(initModules) do
+		module(data, options)
+	end
 end)
 
 hook.add("base.draw", "performance.draw", function()

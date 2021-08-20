@@ -1,3 +1,4 @@
+#include "umf/umf_core.lua"
 #include "umf/extension/visual.lua"
 
 
@@ -148,6 +149,10 @@
 	end
 
 -- Global functions
+	function Clone(object)
+		return util.unserialize(util.serialize(object))
+	end
+
 	function GetBodies(require)
 		QueryRequire(require and require or "")
 		return QueryAabbBodies(Vec(-math.huge, -math.huge, -math.huge),Vec(math.huge, math.huge, math.huge))

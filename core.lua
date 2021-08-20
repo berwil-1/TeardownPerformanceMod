@@ -1,4 +1,3 @@
-#include "umf/umf_core.lua"
 #include "assets/script/util.lua"
 
 local data
@@ -10,7 +9,7 @@ local frames = {}
 
 function InitCore(dataReference, optionsReference)
 	data = dataReference
-	options = optionsReference
+	options = optionsReference[2]
 end
 
 function TickCore(dt)
