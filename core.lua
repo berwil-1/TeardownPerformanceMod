@@ -54,9 +54,11 @@ function TickCore(dt)
 					if VecLength(VecSub(GetShapeWorldTransform(shape).pos, GetPlayerPos())) > 25 then
 						local velocity = GetBodyVelocity(body)
 						if IsBodyDynamic(body) and (options.stabilizer.stabilizeActiveObjects or not IsBodyActive(body)) and (options.stabilizer.stabilizeVisibleDebris or not IsBodyVisible(body, 50)) then
+							DrawBodyOutline(body, 1, 0, 0, 1)
 							SetBodyDynamic(body, false)
 						end
 					elseif not IsBodyDynamic(body) then
+						DrawBodyOutline(body, 0, 1, 0, 1)
 						SetBodyDynamic(body, true)
 						SetBodyVelocity(body, Vec(0, 0, 0))
 					end
@@ -65,7 +67,7 @@ function TickCore(dt)
 
 			-- Debris cleaner
 			if options.cleaner.enabled then
-				if IsBodyBroken(body) and VecLength(VecSub(max, min)) < curvePresets[options.cleaner.curve][2](math.floor(data[4])) * options.cleaner.multiplier and (bodyMass > 0 and bodyMass < 200) then
+				if IsBodyBroken(body) and VecLength(VecSub(max, min)) < data[3][options.cleaner.curve][2](math.floor(data[4])) * options.cleaner.multiplier and (bodyMass > 0 and bodyMass < 200) then
 					if (options.cleaner.removeActiveDebris or not IsBodyActive(body)) and (options.cleaner.removeVisibleDebris or not IsBodyVisible(body, 50)) and not (HasTag(body, "target") or HasTag(GetBodyShapes(body)[1], "alarmbox")) then
 						Delete(body)
 					end
