@@ -1,4 +1,3 @@
-#include "umf/umf_core.lua"
 #include "assets/script/util.lua"
 
 local data
@@ -10,7 +9,7 @@ local frames = {}
 
 function InitCore(dataReference, optionsReference)
 	data = dataReference
-	options = optionsReference
+	options = optionsReference[2]
 end
 
 function TickCore(dt)
@@ -65,7 +64,7 @@ function TickCore(dt)
 
 			-- Debris cleaner
 			if options.cleaner.enabled then
-				if IsBodyBroken(body) and VecLength(VecSub(max, min)) < curvePresets[options.cleaner.curve][2](math.floor(data[4])) * options.cleaner.multiplier and (bodyMass > 0 and bodyMass < 200) then
+				if IsBodyBroken(body) and VecLength(VecSub(max, min)) < data[3][options.cleaner.curve][2](math.floor(data[4])) * options.cleaner.multiplier and (bodyMass > 0 and bodyMass < 200) then
 					if (options.cleaner.removeActiveDebris or not IsBodyActive(body)) and (options.cleaner.removeVisibleDebris or not IsBodyVisible(body, 50)) and not (HasTag(body, "target") or HasTag(GetBodyShapes(body)[1], "alarmbox")) then
 						Delete(body)
 					end

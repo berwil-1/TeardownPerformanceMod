@@ -2,22 +2,13 @@
 
 
 
-hook.add("base.init", "performance.init", function()
-	-- Check if the user uses a pre v2 version, if true then switch over to use the newer system.
-	if not HasKey("savegame.mod.version") then
-		ClearKey("savegame.mod")
-		SetFloat("savegame.mod.version", 2.0)
-		SetString("savegame.mod.keybind", "p")
-	end
-end)
-
 hook.add("base.draw", "performance.draw", function()
 	UiAlign("center")
 	UiTranslate(UiCenter(), UiMiddle())
 
 	UiFont("bold.ttf", 100)
 	UiColor(1, 1, 1, 1)
-	UiText("PERFORMANCE MOD v2.0")
+	UiText("PERFORMANCE MOD v2.1")
 
 	UiTranslate(-120, 50)
 	UiFont("bold.ttf", 32)

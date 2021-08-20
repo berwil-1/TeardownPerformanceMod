@@ -2,13 +2,15 @@
 
 local data
 local options
+local fallbackOptions
 local window
 
 
 
 function InitWindow(dataReference, optionsReference)
 	data = dataReference
-	options = optionsReference
+	fallbackOptions = optionsReference[1]
+	options = optionsReference[2]
 	window = {
 		enabled = false,
 		interact = false,
@@ -71,7 +73,7 @@ function InitWindow(dataReference, optionsReference)
 
 								if UiTextedButton(options.counter.enabled and "ENABLED" or "DISABLED", "center middle", 240, 60, options.counter.enabled and {0, 1, 0, .5} or {1, 0, 0, .5}, {1, 1, 1, 1}) then options.counter.enabled = not options.counter.enabled end
 								UiTranslate(240, 0)
-								if UiTextedButton("RESET", "center middle", 240, 60, {1, 0, 0, .5}, {1, 1, 1, 1}) then options.counter = util.unserialize(util.serialize(defaultOptions.counter)) end
+								if UiTextedButton("RESET", "center middle", 240, 60, {1, 0, 0, .5}, {1, 1, 1, 1}) then options.counter = Clone(fallbackOptions.counter)	end
 							UiPop()
 
 							-- Alignment window
@@ -79,8 +81,9 @@ function InitWindow(dataReference, optionsReference)
 							UiColor(0, 0, 0, .5)
 							UiRect(UiCenter() - 60, 108 / 192 * (UiCenter() - 60))
 							UiPush()
+								local backColor = visual.hslrgb(options.counter.backColor[1][1], options.counter.backColor[1][2], options.counter.backColor[1][3])
 								UiTranslate(420 / 1920 * options.counter.position[1], (270 - y1 / 10) / 1080 * options.counter.position[2])
-								UiColor(0, 0, 0, .5)
+								UiColor(backColor[1], backColor[2], backColor[3], .5)
 								UiRect(60, y1 / 10)
 							UiPop()
 							
@@ -227,7 +230,7 @@ function InitWindow(dataReference, optionsReference)
 
 								if UiTextedButton(options.controller.enabled and "ENABLED" or "DISABLED", "center middle", 240, 60, options.controller.enabled and {0, 1, 0, .5} or {1, 0, 0, .5}, {1, 1, 1, 1}) then options.controller.enabled = not options.controller.enabled end
 								UiTranslate(240, 0)
-								if UiTextedButton("RESET", "center middle", 240, 60, {1, 0, 0, .5}, {1, 1, 1, 1}) then options.controller = util.unserialize(util.serialize(defaultOptions.controller)) end
+								if UiTextedButton("RESET", "center middle", 240, 60, {1, 0, 0, .5}, {1, 1, 1, 1}) then options.controller = Clone(fallbackOptions.controller) end
 							UiPop()
 						
 							-- Text color picker
@@ -315,7 +318,7 @@ function InitWindow(dataReference, optionsReference)
 
 									if UiTextedButton(options.cleaner.enabled and "ENABLED" or "DISABLED", "center middle", 240, 60, options.cleaner.enabled and {0, 1, 0, .5} or {1, 0, 0, .5}, {1, 1, 1, 1}) then options.cleaner.enabled = not options.cleaner.enabled end
 									UiTranslate(240, 0)
-									if UiTextedButton("RESET", "center middle", 240, 60, {1, 0, 0, .5}, {1, 1, 1, 1}) then options.cleaner = util.unserialize(util.serialize(defaultOptions.cleaner)) end
+									if UiTextedButton("RESET", "center middle", 240, 60, {1, 0, 0, .5}, {1, 1, 1, 1}) then options.cleaner = Clone(fallbackOptions.cleaner) end
 								UiPop()
 							UiPop()
 
@@ -432,13 +435,12 @@ function InitWindow(dataReference, optionsReference)
 
 									if UiTextedButton(options.stabilizer.enabled and "ENABLED" or "DISABLED", "center middle", 240, 60, options.stabilizer.enabled and {0, 1, 0, .5} or {1, 0, 0, .5}, {1, 1, 1, 1}) then options.stabilizer.enabled = not options.stabilizer.enabled end
 									UiTranslate(240, 0)
-									if UiTextedButton("RESET", "center middle", 240, 60, {1, 0, 0, .5}, {1, 1, 1, 1}) then options.stabilizer = util.unserialize(util.serialize(defaultOptions.stabilizer)) end
+									if UiTextedButton("RESET", "center middle", 240, 60, {1, 0, 0, .5}, {1, 1, 1, 1}) then options.stabilizer = Clone(fallbackOptions.stabilizer) end
 								UiPop()
 							UiPop()
 
 							-- Graph window
 							local graphWidth = UiCenter() - 60
-							--local curvePresets = {{"CONSTANT", function(value) return options.stabilizer.fallbackSize end}, {"LINEAR", function(value) return 60 - value end}, {"EXPONENTIAL", function(value) return 30.07462 - (0.00003718851 / -0.1998865) * (1 - math.exp(1) ^ (0.1998865 * value)) end}, {"INVERSE", function(value) return 3.48986 * 10 ^ 12 * value ^ -7.491398 end}}
 							UiTranslate(0, 90)
 							UiColor(0, 0, 0, .2)
 							UiRect(graphWidth, graphWidth)
