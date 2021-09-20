@@ -157,32 +157,32 @@ function InitWindow(dataReference, optionsReference)
 							UiTranslate(0, 90)
 
 							-- Extra modification buttons
-							if UiTextedButton(options.counter.backColor[2] == 0.5 and "HIDE BACKGROUND" or "SHOW BACKGROUND", "center middle", 480, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
+							if UiTextedButton(options.counter.backColor[2] == 0.5 and "BACKGROUND SHOWN" or "BACKGROUND HIDDEN", "center middle", 480, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
 								options.counter.backColor[2] = options.counter.backColor[2] == .5 and 0 or 0.5
 							end
 
 							UiTranslate(0, 90)
-							if UiTextedButton(options.counter.frameCount and "HIDE FRAME COUNT" or "SHOW FRAME COUNT", "center middle", 480, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
+							if UiTextedButton(options.counter.frameCount and "FRAME COUNT SHOWN" or "FRAME COUNT HIDDEN", "center middle", 480, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
 								options.counter.frameCount = not options.counter.frameCount
 							end
 
 							UiTranslate(0, 90)						
-							if UiTextedButton(options.counter.bodyCount and "HIDE BODY COUNT" or "SHOW BODY COUNT", "center middle", 480, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
+							if UiTextedButton(options.counter.bodyCount and "BODY COUNT SHOWN" or "BODY COUNT HIDDEN", "center middle", 480, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
 								options.counter.bodyCount = not options.counter.bodyCount
 							end
 
 							UiTranslate(0, 90)
-							if UiTextedButton(options.counter.shapeCount and "HIDE SHAPE COUNT" or "SHOW SHAPE COUNT", "center middle", 480, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
+							if UiTextedButton(options.counter.shapeCount and "SHAPE COUNT SHOWN" or "SHAPE COUNT", "center middle", 480, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
 								options.counter.shapeCount = not options.counter.shapeCount
 							end
 
 							UiTranslate(0, 90)
-							if UiTextedButton(options.counter.fireCount and "HIDE FIRE COUNT" or "SHOW FIRE COUNT", "center middle", 480, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
+							if UiTextedButton(options.counter.fireCount and "FIRE COUNT SHOWN" or "SHOW FIRE COUNT", "center middle", 480, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
 								options.counter.fireCount = not options.counter.fireCount
 							end
 
 							UiTranslate(0, 90)
-							if UiTextedButton(options.counter.accuracy == 0 and "MORE ACCURACY" or "LESS ACCURACY", "center middle", 480, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
+							if UiTextedButton(options.counter.accuracy == 0 and "LOW ACCURACY" or "HIGH ACCURACY", "center middle", 480, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
 								options.counter.accuracy = options.counter.accuracy == 2 and 0 or 2
 							end
 						UiPop()
@@ -269,12 +269,12 @@ function InitWindow(dataReference, optionsReference)
 							UiTranslate(0, 90)
 
 							-- Extra modification buttons
-							if UiTextedButton(options.controller.colorControl and "DISABLE COLOR" or "ENABLE COLOR", "center middle", 480, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
+							if UiTextedButton(options.controller.colorControl and "COLOR ENABLED" or "COLOR DISABLED", "center middle", 480, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
 								options.controller.colorControl = not options.controller.colorControl
 							end
 
 							UiTranslate(0, 90)
-							if UiTextedButton(options.controller.intensityControl and "DISABLE INTENSITY" or "ENABLE INTENSITY", "center middle", 480, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
+							if UiTextedButton(options.controller.intensityControl and "INTENSITY DISABLED" or "INTENSITY ENABLED", "center middle", 480, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
 								options.controller.intensityControl = not options.controller.intensityControl
 							end
 						UiPop()
@@ -321,50 +321,9 @@ function InitWindow(dataReference, optionsReference)
 									if UiTextedButton("RESET", "center middle", 240, 60, {1, 0, 0, .5}, {1, 1, 1, 1}) then options.cleaner = Clone(fallbackOptions.cleaner) end
 								UiPop()
 							UiPop()
-
-							-- Graph window
-							local graphWidth = UiCenter() - 60
-							UiTranslate(0, 90)
-							UiColor(0, 0, 0, .2)
-							UiRect(graphWidth, graphWidth)
-							UiPush()
-								UiAlign("left top")
-								UiTranslate(10, 10)
-								UiColor(1, 1, 1, 1)
-								UiFont("bold.ttf", 12)
-								UiText("SIZE")
-
-								UiAlign("right bottom")
-								UiTranslate(graphWidth - 20, graphWidth - 20)
-								UiText("FPS")
-							UiPop()
-							UiTranslate(0, graphWidth)
-
-							-- Graph function
-							UiPush()
-								local curveFunction = data[3][options.cleaner.curve][2]
-								local previousY = curveFunction(30)
-								for x = 31, 60 do
-									UiDrawLine(graphWidth / 30, (curveFunction(x) - previousY) * (graphWidth / 30), 1, 1, 1, 1)
-									UiTranslate(graphWidth / 30, (curveFunction(x) - previousY) * (graphWidth / 30))
-									previousY = curveFunction(x)
-								end
-							UiPop()
-
-							-- Curve buttons
-							UiPush()
-								UiFont("bold.ttf", 16)
-								for buttonIteration = 1, #data[3] do
-									local curveName = data[3][buttonIteration][1]
-									if UiTextedButton(curveName, "center middle", (UiCenter() - 60) / 4, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
-										options.cleaner.curve = buttonIteration
-									end
-									UiTranslate((UiCenter() - 60) / 4, 0)
-								end
-							UiPop()
 							UiTranslate(0, 90)
 
-							-- Delay slider
+							-- Size slider
 							UiPush()
 								UiColor(0, 0, 0, .7)
 								UiRect(480, 30)
@@ -386,12 +345,12 @@ function InitWindow(dataReference, optionsReference)
 							UiTranslate(540, 0)
 
 							-- Extra modification buttons
-							if UiTextedButton(options.cleaner.removeVisibleDebris and "IGNORE VISIBLE" or "REMOVE VISIBLE", "center middle", 480, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
+							if UiTextedButton(options.cleaner.removeVisibleDebris and "REMOVING VISIBLE" or "IGNORING VISIBLE", "center middle", 480, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
 								options.cleaner.removeVisibleDebris = not options.cleaner.removeVisibleDebris
 							end
 
 							UiTranslate(0, 90)
-							if UiTextedButton(options.cleaner.removeActiveDebris and "IGNORE ACTIVE" or "REMOVE ACTIVE", "center middle", 480, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
+							if UiTextedButton(options.cleaner.removeActiveDebris and "REMOVING ACTIVE" or "IGNORING ACTIVE", "center middle", 480, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
 								options.cleaner.removeActiveDebris = not options.cleaner.removeActiveDebris
 							end
 						UiPop()
@@ -438,47 +397,6 @@ function InitWindow(dataReference, optionsReference)
 									if UiTextedButton("RESET", "center middle", 240, 60, {1, 0, 0, .5}, {1, 1, 1, 1}) then options.stabilizer = Clone(fallbackOptions.stabilizer) end
 								UiPop()
 							UiPop()
-
-							-- Graph window
-							local graphWidth = UiCenter() - 60
-							UiTranslate(0, 90)
-							UiColor(0, 0, 0, .2)
-							UiRect(graphWidth, graphWidth)
-							UiPush()
-								UiAlign("left top")
-								UiTranslate(10, 10)
-								UiColor(1, 1, 1, 1)
-								UiFont("bold.ttf", 12)
-								UiText("SIZE")
-
-								UiAlign("right bottom")
-								UiTranslate(graphWidth - 20, graphWidth - 20)
-								UiText("FPS")
-							UiPop()
-							UiTranslate(0, graphWidth)
-
-							-- Graph function
-							UiPush()
-								local curveFunction = data[3][options.stabilizer.curve][2]
-								local previousY = curveFunction(30)
-								for x = 31, 60 do
-									UiDrawLine(graphWidth / 30, (curveFunction(x) - previousY) * (graphWidth / 30), 1, 1, 1, 1)
-									UiTranslate(graphWidth / 30, (curveFunction(x) - previousY) * (graphWidth / 30))
-									previousY = curveFunction(x)
-								end
-							UiPop()
-
-							-- Curve buttons
-							UiPush()
-								UiFont("bold.ttf", 16)
-								for buttonIteration = 1, #data[3] do
-									local curveName = data[3][buttonIteration][1]
-									if UiTextedButton(curveName, "center middle", (UiCenter() - 60) / 4, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
-										options.stabilizer.curve = buttonIteration
-									end
-									UiTranslate((UiCenter() - 60) / 4, 0)
-								end
-							UiPop()
 							UiTranslate(0, 90)
 
 							-- Size slider
@@ -503,12 +421,12 @@ function InitWindow(dataReference, optionsReference)
 							UiTranslate(540, 0)
 
 							-- Extra modification buttons
-							if UiTextedButton(options.stabilizer.stabilizeVisibleDebris and "IGNORE VISIBLE" or "STABILIZE VISIBLE", "center middle", 480, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
+							if UiTextedButton(options.stabilizer.stabilizeVisibleDebris and "STABILIZING VISIBLE" or "IGNORING VISIBLE", "center middle", 480, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
 								options.stabilizer.stabilizeVisibleDebris = not options.stabilizer.stabilizeVisibleDebris
 							end
 
 							UiTranslate(0, 90)
-							if UiTextedButton(options.stabilizer.stabilizeActiveObjects and "IGNORE ACTIVE" or "STABILIZE ACTIVE", "center middle", 480, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
+							if UiTextedButton(options.stabilizer.stabilizeActiveObjects and "STABILIZING ACTIVE" or "IGNORING ACTIVE", "center middle", 480, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
 								options.stabilizer.stabilizeActiveObjects = not options.stabilizer.stabilizeActiveObjects
 							end
 						UiPop()
