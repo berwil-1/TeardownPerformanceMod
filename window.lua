@@ -148,7 +148,7 @@ function InitWindow(dataReference, optionsReference)
 								UiAlign("center middle")
 								UiTranslate(240, 15)
 								UiColor(1, 1, 1, 1)
-								UiText("FPS FREQUENCY DELAY")
+								UiText("FPS UPDATE DELAY")
 							UiPop()
 							UiTranslate(0, 30)
 							UiPush()
@@ -184,98 +184,6 @@ function InitWindow(dataReference, optionsReference)
 							UiTranslate(0, 90)
 							if UiTextedButton(options.counter.accuracy == 0 and "LOW ACCURACY" or "HIGH ACCURACY", "center middle", 480, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
 								options.counter.accuracy = options.counter.accuracy == 2 and 0 or 2
-							end
-						UiPop()
-					UiPop()
-				end
-			},
-
-			-- LIGHT CONTROLLER
-			{
-				name = "controller",
-				title = "LIGHT CONTROLLER",
-				draw = function(x0, y0, x1, y1)
-					-- Account for navbar size and draw background.
-					UiAlign("left")
-					UiTranslate(x0, 0)
-					UiColor(0, 0, 0, .8)
-					UiRect(x1, y1)
-
-					-- Draw setting elements
-					UiWindow(1320 - x0, y1, false)
-					UiPush()
-						UiTranslate(30, 30)
-						UiFont("bold.ttf", 18)
-
-						-- Draw controller flare preview.
-						UiPush()
-							local color = visual.hslrgb(options.controller.color[1], options.controller.color[2], options.controller.color[3])
-							UiAlign("center middle")
-							UiTranslate(1380, y1 / 2)
-
-							UiColor(1, 1, 1, 1)
-							UiImage("assets/gfx/previews/light_pole.png")
-
-							UiTranslate(0, -220)
-							UiColor(color[1], color[2], color[3], 1)
-							UiImage("assets/gfx/previews/flare.png")
-						UiPop()
-
-						-- Left side elements
-						UiPush()
-							-- Button text
-							UiPush()
-								UiColor(1, 1, 1, 1)
-								UiAlign("center middle")
-
-								if UiTextedButton(options.controller.enabled and "ENABLED" or "DISABLED", "center middle", 240, 60, options.controller.enabled and {0, 1, 0, .5} or {1, 0, 0, .5}, {1, 1, 1, 1}) then options.controller.enabled = not options.controller.enabled end
-								UiTranslate(240, 0)
-								if UiTextedButton("RESET", "center middle", 240, 60, {1, 0, 0, .5}, {1, 1, 1, 1}) then options.controller = Clone(fallbackOptions.controller) end
-							UiPop()
-						
-							-- Text color picker
-							UiTranslate(0, 90)
-							UiPush()
-								UiColor(0, 0, 0, .7)
-								UiRect(480, 30)
-
-								UiAlign("center middle")
-								UiTranslate(240, 15)
-								UiColor(1, 1, 1, 1)
-								UiText("LIGHT COLOR")
-							UiPop()
-							UiTranslate(0, 30)
-							options.controller.color = UiColorPicker(options.controller.color, 1)
-						UiPop()
-
-						-- Right side elements
-						UiPush()
-							UiTranslate(540, 0)
-
-							-- Delay slider
-							UiPush()
-								UiColor(0, 0, 0, .7)
-								UiRect(480, 30)
-
-								UiAlign("center middle")
-								UiTranslate(240, 15)
-								UiColor(1, 1, 1, 1)
-								UiText("LIGHT INTENSITY")
-							UiPop()
-							UiTranslate(0, 30)
-							UiPush()
-								options.controller.intensity = Round(UiColoredSlider(options.controller.intensity, 0, 10, 480, 60, {0, 0, 0, .5}, {0, 0, 0, .2}))
-							UiPop()
-							UiTranslate(0, 90)
-
-							-- Extra modification buttons
-							if UiTextedButton(options.controller.colorControl and "COLOR ENABLED" or "COLOR DISABLED", "center middle", 480, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
-								options.controller.colorControl = not options.controller.colorControl
-							end
-
-							UiTranslate(0, 90)
-							if UiTextedButton(options.controller.intensityControl and "INTENSITY DISABLED" or "INTENSITY ENABLED", "center middle", 480, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
-								options.controller.intensityControl = not options.controller.intensityControl
 							end
 						UiPop()
 					UiPop()
@@ -331,7 +239,7 @@ function InitWindow(dataReference, optionsReference)
 								UiAlign("center middle")
 								UiTranslate(240, 15)
 								UiColor(1, 1, 1, 1)
-								UiText("SIZE MULTIPLIER")
+								UiText("SIZE MULTIPLIER (LOWER = SLOWER)")
 							UiPop()
 							UiTranslate(0, 30)
 							UiPush()
@@ -407,7 +315,7 @@ function InitWindow(dataReference, optionsReference)
 								UiAlign("center middle")
 								UiTranslate(240, 15)
 								UiColor(1, 1, 1, 1)
-								UiText("SIZE MULTIPLIER")
+								UiText("SIZE MULTIPLIER (LOWER = SLOWER)")
 							UiPop()
 							UiTranslate(0, 30)
 							UiPush()
@@ -421,14 +329,306 @@ function InitWindow(dataReference, optionsReference)
 							UiTranslate(540, 0)
 
 							-- Extra modification buttons
-							if UiTextedButton(options.stabilizer.stabilizeVisibleDebris and "STABILIZING VISIBLE" or "IGNORING VISIBLE", "center middle", 480, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
-								options.stabilizer.stabilizeVisibleDebris = not options.stabilizer.stabilizeVisibleDebris
+							if UiTextedButton(options.stabilizer.stabilizeVisibleObjects and "STABILIZING VISIBLE" or "IGNORING VISIBLE", "center middle", 480, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
+								options.stabilizer.stabilizeVisibleObjects = not options.stabilizer.stabilizeVisibleObjects
 							end
+						UiPop()
+					UiPop()
+				end
+			},
 
+			-- FIRE
+			{
+				name = "fire",
+				title = "FIRE CONTROLLER",
+				draw = function(x0, y0, x1, y1)
+					-- Account for navbar size and draw background.
+					UiAlign("left")
+					UiTranslate(x0, 0)
+					UiColor(0, 0, 0, .8)
+					UiRect(x1, y1)
+
+					-- Draw setting elements
+					UiWindow(1320 - x0, y1, false)
+					UiPush()
+						UiTranslate(30, 30)
+						UiFont("bold.ttf", 18)
+
+						-- Draw stabilizer object preview.
+						UiPush()
+							UiAlign("center middle")
+							UiTranslate(1380, y1 / 2)
+
+							UiColor(1, 1, 1, 1)
+							UiImage("assets/gfx/previews/object.png")
+						UiPop()
+
+						-- Left side elements
+						UiPush()
+							UiPush()
+								-- Button text
+								UiPush()
+									UiColor(1, 1, 1, 1)
+									UiAlign("center middle")
+
+									if UiTextedButton(options.fire.enabled and "ENABLED" or "DISABLED", "center middle", 240, 60, options.fire.enabled and {0, 1, 0, .5} or {1, 0, 0, .5}, {1, 1, 1, 1}) then options.fire.enabled = not options.fire.enabled end
+									UiTranslate(240, 0)
+									if UiTextedButton("RESET", "center middle", 240, 60, {1, 0, 0, .5}, {1, 1, 1, 1}) then options.fire = Clone(fallbackOptions.fire) end
+								UiPop()
+							UiPop()
 							UiTranslate(0, 90)
-							if UiTextedButton(options.stabilizer.stabilizeActiveObjects and "STABILIZING ACTIVE" or "IGNORING ACTIVE", "center middle", 480, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
-								options.stabilizer.stabilizeActiveObjects = not options.stabilizer.stabilizeActiveObjects
-							end
+
+							-- Amount slider
+							UiPush()
+								UiColor(0, 0, 0, .7)
+								UiRect(480, 30)
+
+								UiAlign("center middle")
+								UiTranslate(240, 15)
+								UiColor(1, 1, 1, 1)
+								UiText("AMOUNT (LOWER = FASTER)")
+							UiPop()
+							UiTranslate(0, 30)
+							UiPush()
+								options.fire.amount = Round(UiColoredSlider(options.fire.amount, 0, 1000, 480, 60, {0, 0, 0, .5}, {0, 0, 0, .2}), -1, 5)
+							UiPop()
+							UiTranslate(0, 90)
+
+							UiPush()
+								UiColor(0, 0, 0, .7)
+								UiRect(480, 30)
+
+								UiAlign("center middle")
+								UiTranslate(240, 15)
+								UiColor(1, 1, 1, 1)
+								UiText("SPREAD (LOWER = FASTER)")
+							UiPop()
+							UiTranslate(0, 30)
+							UiPush()
+								options.fire.spread = Round(UiColoredSlider(options.fire.spread, 0, 10, 480, 60, {0, 0, 0, .5}, {0, 0, 0, .2}), 1, 0.05)
+							UiPop()
+							UiTranslate(0, 90)
+						UiPop()
+
+						-- Right side elements
+						UiPush()
+							UiTranslate(540, 0)
+						UiPop()
+					UiPop()
+				end
+			},
+
+			-- SUN
+			{
+				name = "sun",
+				title = "SUN CONTROLLER",
+				draw = function(x0, y0, x1, y1)
+					-- Account for navbar size and draw background.
+					UiAlign("left")
+					UiTranslate(x0, 0)
+					UiColor(0, 0, 0, .8)
+					UiRect(x1, y1)
+
+					-- Draw setting elements
+					UiWindow(1320 - x0, y1, false)
+					UiPush()
+						UiTranslate(30, 30)
+						UiFont("bold.ttf", 18)
+
+						-- Draw stabilizer object preview.
+						UiPush()
+							UiAlign("center middle")
+							UiTranslate(1380, y1 / 2)
+
+							UiColor(1, 1, 1, 1)
+							UiImage("assets/gfx/previews/object.png")
+						UiPop()
+
+						-- Left side elements
+						UiPush()
+							UiPush()
+								-- Button text
+								UiPush()
+									UiColor(1, 1, 1, 1)
+									UiAlign("center middle")
+
+									if UiTextedButton(options.sun.enabled and "ENABLED" or "DISABLED", "center middle", 240, 60, options.sun.enabled and {0, 1, 0, .5} or {1, 0, 0, .5}, {1, 1, 1, 1}) then options.sun.enabled = not options.sun.enabled end
+									UiTranslate(240, 0)
+									if UiTextedButton("RESET", "center middle", 240, 60, {1, 0, 0, .5}, {1, 1, 1, 1}) then options.sun = Clone(fallbackOptions.sun) end
+								UiPop()
+							UiPop()
+							UiTranslate(0, 90)
+
+							-- Brightness slider
+							UiPush()
+								UiColor(0, 0, 0, .7)
+								UiRect(480, 30)
+
+								UiAlign("center middle")
+								UiTranslate(240, 15)
+								UiColor(1, 1, 1, 1)
+								UiText("BRIGHTNESS (LOWER = FASTER)")
+							UiPop()
+							UiTranslate(0, 30)
+							UiPush()
+								options.sun.brightness = Round(UiColoredSlider(options.sun.brightness, 0, 1, 480, 60, {0, 0, 0, .5}, {0, 0, 0, .2}), 2, .005)
+							UiPop()
+							UiTranslate(0, 90)
+
+							-- Shadow length slider
+							UiPush()
+								UiColor(0, 0, 0, .7)
+								UiRect(480, 30)
+
+								UiAlign("center middle")
+								UiTranslate(240, 15)
+								UiColor(1, 1, 1, 1)
+								UiText("SHADOW LENGTH (LOWER = FASTER)")
+							UiPop()
+							UiTranslate(0, 30)
+							UiPush()
+								options.sun.length = Round(UiColoredSlider(options.sun.length, 0, 256, 480, 60, {0, 0, 0, .5}, {0, 0, 0, .2}), 0, 0)
+							UiPop()
+						UiPop()
+
+						-- Right side elements
+						UiPush()
+							UiTranslate(540, 0)
+						UiPop()
+					UiPop()
+				end
+			},
+
+			-- LIGHT
+			{
+				name = "light",
+				title = "LIGHT CONTROLLER",
+				draw = function(x0, y0, x1, y1)
+					-- Account for navbar size and draw background.
+					UiAlign("left")
+					UiTranslate(x0, 0)
+					UiColor(0, 0, 0, .8)
+					UiRect(x1, y1)
+
+					-- Draw setting elements
+					UiWindow(1320 - x0, y1, false)
+					UiPush()
+						UiTranslate(30, 30)
+						UiFont("bold.ttf", 18)
+
+						-- Draw controller flare preview.
+						UiPush()
+							local color = visual.hslrgb(options.light.color[1], options.light.color[2], options.light.color[3])
+							UiAlign("center middle")
+							UiTranslate(1380, y1 / 2)
+
+							UiColor(1, 1, 1, 1)
+							UiImage("assets/gfx/previews/light_pole.png")
+
+							UiTranslate(0, -220)
+							UiColor(color[1], color[2], color[3], 1)
+							UiImage("assets/gfx/previews/flare.png")
+						UiPop()
+
+						-- Left side elements
+						UiPush()
+							-- Button text
+							UiPush()
+								UiColor(1, 1, 1, 1)
+								UiAlign("center middle")
+
+								if UiTextedButton(options.light.enabled and "ENABLED" or "DISABLED", "center middle", 240, 60, options.light.enabled and {0, 1, 0, .5} or {1, 0, 0, .5}, {1, 1, 1, 1}) then options.light.enabled = not options.light.enabled end
+								UiTranslate(240, 0)
+								if UiTextedButton("RESET", "center middle", 240, 60, {1, 0, 0, .5}, {1, 1, 1, 1}) then options.light = Clone(fallbackOptions.light) end
+							UiPop()
+							UiTranslate(0, 90)
+
+							-- Intensity slider
+							UiPush()
+								UiColor(0, 0, 0, .7)
+								UiRect(480, 30)
+
+								UiAlign("center middle")
+								UiTranslate(240, 15)
+								UiColor(1, 1, 1, 1)
+								UiText("LIGHT INTENSITY (LOWER = FASTER)")
+							UiPop()
+							UiTranslate(0, 30)
+							UiPush()
+								options.light.intensity = Round(UiColoredSlider(options.light.intensity, 0, 10, 480, 60, {0, 0, 0, .5}, {0, 0, 0, .2}))
+							UiPop()
+							UiTranslate(0, 90)
+						UiPop()
+
+						-- Right side elements
+						UiPush()
+							UiTranslate(540, 0)
+						UiPop()
+					UiPop()
+				end
+			},
+
+			-- FOG
+			{
+				name = "fog",
+				title = "FOG CONTROLLER",
+				draw = function(x0, y0, x1, y1)
+					-- Account for navbar size and draw background.
+					UiAlign("left")
+					UiTranslate(x0, 0)
+					UiColor(0, 0, 0, .8)
+					UiRect(x1, y1)
+
+					-- Draw setting elements
+					UiWindow(1320 - x0, y1, false)
+					UiPush()
+						UiTranslate(30, 30)
+						UiFont("bold.ttf", 18)
+
+						-- Draw stabilizer object preview.
+						UiPush()
+							UiAlign("center middle")
+							UiTranslate(1380, y1 / 2)
+
+							UiColor(1, 1, 1, 1)
+							UiImage("assets/gfx/previews/object.png")
+						UiPop()
+
+						-- Left side elements
+						UiPush()
+							UiPush()
+								-- Button text
+								UiPush()
+									UiColor(1, 1, 1, 1)
+									UiAlign("center middle")
+
+									if UiTextedButton(options.fog.enabled and "ENABLED" or "DISABLED", "center middle", 240, 60, options.fog.enabled and {0, 1, 0, .5} or {1, 0, 0, .5}, {1, 1, 1, 1}) then options.fog.enabled = not options.fog.enabled end
+									UiTranslate(240, 0)
+									if UiTextedButton("RESET", "center middle", 240, 60, {1, 0, 0, .5}, {1, 1, 1, 1}) then options.fog = Clone(fallbackOptions.fog) end
+								UiPop()
+							UiPop()
+							UiTranslate(0, 90)
+
+							-- Amount slider
+							UiPush()
+								UiColor(0, 0, 0, .7)
+								UiRect(480, 30)
+
+								UiAlign("center middle")
+								UiTranslate(240, 15)
+								UiColor(1, 1, 1, 1)
+								UiText("AMOUNT (LOWER = FASTER)")
+							UiPop()
+							UiTranslate(0, 30)
+							UiPush()
+								options.fog.amount = Round(UiColoredSlider(options.fog.amount, 0, 1, 480, 60, {0, 0, 0, .5}, {0, 0, 0, .2}), 2, .005)
+							UiPop()
+							UiTranslate(0, 90)
+						UiPop()
+
+						-- Right side elements
+						UiPush()
+							UiTranslate(540, 0)
 						UiPop()
 					UiPop()
 				end
@@ -440,7 +640,7 @@ end
 function TickWindow(dt)
 	-- If the ALT button was pressed, toggle the performance window and save the options.
 	-- This is used to make sure the settings were fully saved as no changes can be made without the window shown.
-	if InputDown("alt") and InputPressed(GetString("savegame.mod.keybind")) then
+	if (InputDown("alt") and InputPressed(GetString("savegame.mod.keybind"))) or PauseMenuButton("Performance Mod") then
 		window.enabled = not window.enabled
 		window.interact = not window.interact
 		SetString("savegame.mod.options", util.serialize(options))

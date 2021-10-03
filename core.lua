@@ -1,4 +1,5 @@
 #include "assets/script/util.lua"
+#include "umf/umf_meta.lua"
 
 local data
 local options
@@ -31,33 +32,35 @@ function TickCore(dt)
 			local shapes = GetBodyShapes(body)
 			local bodyMass = GetBodyMass(body)
 			local min, max = GetBodyBounds(body)
+			local transform = GetBodyTransform(body)
 
 			for shapeIteration = 1, #shapes do
 				local shape = shapes[shapeIteration]
 
 				-- The controller for all lights in the level, 
-				if options.controller.enabled then
+				if options.light.enabled then
 					local lights = GetShapeLights(shape)
 					
 					for lightIteration = 1, #lights do
 						local light = lights[lightIteration]
-						local lightColor = visual.hslrgb(options.controller.color[1], options.controller.color[2], options.controller.color[3])
+						local lightColor = visual.hslrgb(options.light.color[1], options.light.color[2], options.light.color[3])
 						
-						if options.controller.colorControl then SetLightColor(light, lightColor[1], lightColor[2], lightColor[3]) end
-						if options.controller.intensityControl and options.controller.intensity > .1 then SetLightIntensity(light, options.controller.intensity) else SetLightEnabled(light, false) end
+						if options.light.colorControl then SetLightColor(light, lightColor[1], lightColor[2], lightColor[3]) end
+						if options.light.intensityControl and options.light.intensity > .1 then SetLightIntensity(light, options.light.intensity) else SetLightEnabled(light, false) end
 					end
 				end
 
 				-- Object stabilizer
 				if options.stabilizer.enabled and VecLength(VecSub(max, min)) < 10 then
-					if VecLength(VecSub(GetShapeWorldTransform(shape).pos, GetPlayerPos())) > 25 then
-						local velocity = GetBodyVelocity(body)
-						if IsBodyDynamic(body) and (options.stabilizer.stabilizeActiveObjects or not IsBodyActive(body)) and (options.stabilizer.stabilizeVisibleDebris or not IsBodyVisible(body, 50)) then
-							DrawBodyOutline(body, 1, 0, 0, 1)
+					local distanceToPlayer = VecLength(VecSub(transform.pos, GetPlayerPos()))
+
+					if distanceToPlayer > 25 and IsBodyDynamic(body) then
+						if options.stabilizer.stabilizeActiveObjects == IsBodyActive(body) and options.stabilizer.stabilizeVisibleObjects == IsBodyVisible(body, 50) then
 							SetBodyDynamic(body, false)
 						end
-					elseif not IsBodyDynamic(body) then
-						DrawBodyOutline(body, 0, 1, 0, 1)
+					end
+
+					if distanceToPlayer <= 25 and not IsBodyDynamic(body) then
 						SetBodyDynamic(body, true)
 						SetBodyVelocity(body, Vec(0, 0, 0))
 					end
@@ -73,6 +76,14 @@ function TickCore(dt)
 				end
 			end
 		end
+
+		SetInt("game.fire.maxcount", options.fire.amount)
+		SetFloat("game.fire.spread", options.fire.spread)
+
+		local fogStart, fogEnd, fogAmount, fogExponent = GetEnvironmentProperty("fogParams")
+		SetEnvironmentProperty("sunBrightness", options.sun.brightness)
+		SetEnvironmentProperty("sunLength", options.sun.length)
+		SetEnvironmentProperty("fogParams", fogStart, fogEnd, options.fog.amount, fogExponent)
 	end
 
 	-- Modify the variables to fit the current data
