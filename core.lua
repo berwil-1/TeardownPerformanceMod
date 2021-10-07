@@ -1,5 +1,4 @@
-#include "assets/script/util.lua"
-#include "umf/umf_meta.lua"
+#include "assets/scripts/util.lua"
 
 local data
 local options
@@ -77,13 +76,15 @@ function TickCore(dt)
 			end
 		end
 
-		SetInt("game.fire.maxcount", options.fire.amount)
-		SetFloat("game.fire.spread", options.fire.spread)
+		if HasVersion("0.8.0") then
+			SetInt("game.fire.maxcount", options.fire.amount)
+			SetFloat("game.fire.spread", options.fire.spread)
 
-		local fogStart, fogEnd, fogAmount, fogExponent = GetEnvironmentProperty("fogParams")
-		SetEnvironmentProperty("sunBrightness", options.sun.brightness)
-		SetEnvironmentProperty("sunLength", options.sun.length)
-		SetEnvironmentProperty("fogParams", fogStart, fogEnd, options.fog.amount, fogExponent)
+			local fogStart, fogEnd, fogAmount, fogExponent = GetEnvironmentProperty("fogParams")
+			SetEnvironmentProperty("sunBrightness", options.sun.brightness)
+			SetEnvironmentProperty("sunLength", options.sun.length)
+			SetEnvironmentProperty("fogParams", fogStart, fogEnd, options.fog.amount, fogExponent)
+		end
 	end
 
 	-- Modify the variables to fit the current data

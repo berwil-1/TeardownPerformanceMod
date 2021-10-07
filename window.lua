@@ -1,4 +1,4 @@
-#include "assets/script/util.lua"
+#include "assets/scripts/util.lua"
 
 local data
 local options
@@ -22,7 +22,7 @@ function InitWindow(dataReference, optionsReference)
 				name = "counter",
 				title = "INFO COUNTER",
 				draw = function(x0, y0, x1, y1)
-					-- Account for navbar size and draw background.
+					-- Account for navbar size and draw background
 					UiAlign("left")
 					UiTranslate(x0, 0)
 					UiColor(0, 0, 0, .8)
@@ -30,7 +30,7 @@ function InitWindow(dataReference, optionsReference)
 
 					-- Draw counter full-size preview background
 					UiPush()
-						UiTranslate(1080, 0)
+						UiTranslate(1110, 0)
 						local backColor = visual.hslrgb(options.counter.backColor[1][1], options.counter.backColor[1][2], options.counter.backColor[1][3])
 						UiColor(backColor[1], backColor[2], backColor[3], options.counter.backColor[2])
 						UiRect(600, y1)
@@ -49,7 +49,7 @@ function InitWindow(dataReference, optionsReference)
 									UiText(counts[countIteration][2])
 
 									UiAlign("right")
-									UiTranslate(550, 0)
+									UiTranslate(520, 0)
 									UiFont("bold.ttf", 60)
 									UiText(counts[countIteration][3])
 								UiPop()
@@ -66,7 +66,7 @@ function InitWindow(dataReference, optionsReference)
 
 						-- Left side elements
 						UiPush()
-							-- Button text
+							-- Enable and reset buttons
 							UiPush()
 								UiColor(1, 1, 1, 1)
 								UiAlign("center middle")
@@ -75,20 +75,21 @@ function InitWindow(dataReference, optionsReference)
 								UiTranslate(240, 0)
 								if UiTextedButton("RESET", "center middle", 240, 60, {1, 0, 0, .5}, {1, 1, 1, 1}) then options.counter = Clone(fallbackOptions.counter)	end
 							UiPop()
-
-							-- Alignment window
 							UiTranslate(0, 90)
-							UiColor(0, 0, 0, .5)
-							UiRect(UiCenter() - 60, 108 / 192 * (UiCenter() - 60))
+
+							-- Alignment window title
 							UiPush()
-								local backColor = visual.hslrgb(options.counter.backColor[1][1], options.counter.backColor[1][2], options.counter.backColor[1][3])
-								UiTranslate(420 / 1920 * options.counter.position[1], (270 - y1 / 10) / 1080 * options.counter.position[2])
-								UiColor(backColor[1], backColor[2], backColor[3], .5)
-								UiRect(60, y1 / 10)
+								UiColor(0, 0, 0, .7)
+								UiRect(480, 30)
+
+								UiAlign("center middle")
+								UiTranslate(240, 15)
+								UiColor(1, 1, 1, 1)
+								UiText("POSITION")
 							UiPop()
+							UiTranslate(0, 30)
 							
 							-- Alignment buttons
-							UiTranslate(0, 108 / 192 * (UiCenter() - 60))
 							UiPush()
 								local buttonPositions = {{"TL", {0, 0}}, {"TM", {x1 / 2, 0}}, {"TR", {x1, 0}}, {"ML", {0, y1 / 2}}, {"MR", {x1, y1 / 2}}, {"BL", {0, y1}}, {"BM", {x1 / 2, y1}}, {"BR", {x1, y1}}}
 								UiFont("bold.ttf", 16)
@@ -100,9 +101,9 @@ function InitWindow(dataReference, optionsReference)
 									UiTranslate(60, 0)
 								end
 							UiPop()
+							UiTranslate(0, 90)
 
 							-- Background color picker
-							UiTranslate(0, 90)
 							UiPush()
 								UiPush()
 									UiColor(0, 0, 0, .7)
@@ -117,9 +118,9 @@ function InitWindow(dataReference, optionsReference)
 								UiTranslate(0, 30)
 								options.counter.backColor[1] = UiColorPicker(options.counter.backColor[1], .5)
 							UiPop()
+							UiTranslate(240, 0)
 
 							-- Text color picker
-							UiTranslate(240, 0)
 							UiPush()
 								UiPush()
 									UiColor(0, 0, 0, .7)
@@ -140,7 +141,7 @@ function InitWindow(dataReference, optionsReference)
 						UiPush()
 							UiTranslate(540, 0)
 
-							-- Delay slider
+							-- FPS update delay title
 							UiPush()
 								UiColor(0, 0, 0, .7)
 								UiRect(480, 30)
@@ -151,6 +152,8 @@ function InitWindow(dataReference, optionsReference)
 								UiText("FPS UPDATE DELAY")
 							UiPop()
 							UiTranslate(0, 30)
+
+							-- FPS update delay slider
 							UiPush()
 								options.counter.delay = Round(UiColoredSlider(options.counter.delay, 0, 60, 480, 60, {0, 0, 0, .5}, {0, 0, 0, .2}))
 							UiPop()
@@ -160,28 +163,28 @@ function InitWindow(dataReference, optionsReference)
 							if UiTextedButton(options.counter.backColor[2] == 0.5 and "BACKGROUND SHOWN" or "BACKGROUND HIDDEN", "center middle", 480, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
 								options.counter.backColor[2] = options.counter.backColor[2] == .5 and 0 or 0.5
 							end
-
 							UiTranslate(0, 90)
+
 							if UiTextedButton(options.counter.frameCount and "FRAME COUNT SHOWN" or "FRAME COUNT HIDDEN", "center middle", 480, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
 								options.counter.frameCount = not options.counter.frameCount
 							end
-
 							UiTranslate(0, 90)						
+
 							if UiTextedButton(options.counter.bodyCount and "BODY COUNT SHOWN" or "BODY COUNT HIDDEN", "center middle", 480, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
 								options.counter.bodyCount = not options.counter.bodyCount
 							end
-
 							UiTranslate(0, 90)
+
 							if UiTextedButton(options.counter.shapeCount and "SHAPE COUNT SHOWN" or "SHAPE COUNT", "center middle", 480, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
 								options.counter.shapeCount = not options.counter.shapeCount
 							end
-
 							UiTranslate(0, 90)
+
 							if UiTextedButton(options.counter.fireCount and "FIRE COUNT SHOWN" or "SHOW FIRE COUNT", "center middle", 480, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
 								options.counter.fireCount = not options.counter.fireCount
 							end
-
 							UiTranslate(0, 90)
+
 							if UiTextedButton(options.counter.accuracy == 0 and "LOW ACCURACY" or "HIGH ACCURACY", "center middle", 480, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
 								options.counter.accuracy = options.counter.accuracy == 2 and 0 or 2
 							end
@@ -195,11 +198,53 @@ function InitWindow(dataReference, optionsReference)
 				name = "cleaner",
 				title = "DEBRIS CLEANER",
 				draw = function(x0, y0, x1, y1)
-					-- Account for navbar size and draw background.
+					-- Account for navbar size and draw background
 					UiAlign("left")
 					UiTranslate(x0, 0)
 					UiColor(0, 0, 0, .8)
 					UiRect(x1, y1)
+
+					-- Draw module description
+					UiPush()
+						UiTranslate(1110, 0)
+
+						UiColor(0, 0, 0, .5)
+						UiRect(600, y1)
+						UiTranslate(300, 30)
+
+						UiFont("bold.ttf", 36)
+						UiColor(1, 1, 1, 1)
+						UiAlign("center top")
+						UiText("DESCRIPTION")
+						UiTranslate(0, 45)
+
+						UiFont("regular.ttf", 18)
+						UiWordWrap(300)
+						UiText("THE DEBRIS CLEANER WORKS BY REMOVING SMALL VOXELS THAT CAUSE LOTS OF PHYSICS CALCULATIONS AND ARE BARELY VISIBLE, THIS MAKES DESTRUCTION OF LARGE OBJECTS MUCH FASTER.")
+						UiTranslate(0, 120)
+
+						UiFont("bold.ttf", 36)
+						UiColor(1, 1, 1, 1)
+						UiAlign("center top")
+						UiText("USAGE")
+						UiTranslate(0, 45)
+
+						UiFont("regular.ttf", 18)
+						UiWordWrap(300)
+						UiText("THE DEBRIS SIZE MULTIPLIER DEFINES HOW LARGE OBJECTS YOU WANT TO REMOVE, THE LARGER THE OBJECTS THE FASTER DESTRUCTIONS WILL BE. THE OPTIONAL BUTTONS IF SET TO IGNORE VISIBLE/ACTIVE WILL MAKE DEBRIS ONLY BE REMOVED WHILE SEEN/MOVING.")
+						UiTranslate(0, 150)
+
+						UiFont("bold.ttf", 36)
+						UiColor(1, 1, 1, 1)
+						UiAlign("center top")
+						UiText("PERFORMANCE")
+						UiTranslate(0, 45)
+
+						UiFont("regular.ttf", 18)
+						UiWordWrap(300)
+						UiText("HIGH PERFORMANCE MODULE WITH MEDIUM ARTIFACTS, GOOD FOR LOW CPU USAGE. IF USED CORRECTLY A VERY POWERFUL MODULE TO MAKE SURE YOU CAN GET MAXIMAL FRAMERATES DURING DESTRUCTION.")
+						UiTranslate(0, 120)
+					UiPop()
 
 					-- Draw setting elements
 					UiWindow(1320 - x0, y1, false)
@@ -207,19 +252,10 @@ function InitWindow(dataReference, optionsReference)
 						UiTranslate(30, 30)
 						UiFont("bold.ttf", 18)
 
-						-- Draw cleaner debris preview.
-						UiPush()
-							UiAlign("center middle")
-							UiTranslate(1380, y1 / 2)
-
-							UiColor(1, 1, 1, 1)
-							UiImage("assets/gfx/previews/debris.png")
-						UiPop()
-
 						-- Left side elements
 						UiPush()
 							UiPush()
-								-- Button text
+								-- Enable and reset buttons
 								UiPush()
 									UiColor(1, 1, 1, 1)
 									UiAlign("center middle")
@@ -231,7 +267,7 @@ function InitWindow(dataReference, optionsReference)
 							UiPop()
 							UiTranslate(0, 90)
 
-							-- Size slider
+							-- Debris size title
 							UiPush()
 								UiColor(0, 0, 0, .7)
 								UiRect(480, 30)
@@ -239,9 +275,11 @@ function InitWindow(dataReference, optionsReference)
 								UiAlign("center middle")
 								UiTranslate(240, 15)
 								UiColor(1, 1, 1, 1)
-								UiText("SIZE MULTIPLIER (LOWER = SLOWER)")
+								UiText("DEBRIS SIZE (HIGHER = FASTER)")
 							UiPop()
 							UiTranslate(0, 30)
+
+							-- Debris size slider
 							UiPush()
 								options.cleaner.multiplier = Round(UiColoredSlider(options.cleaner.multiplier, 0, 1, 480, 60, {0, 0, 0, .5}, {0, 0, 0, .2}), 2, .005)
 							UiPop()
@@ -256,8 +294,8 @@ function InitWindow(dataReference, optionsReference)
 							if UiTextedButton(options.cleaner.removeVisibleDebris and "REMOVING VISIBLE" or "IGNORING VISIBLE", "center middle", 480, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
 								options.cleaner.removeVisibleDebris = not options.cleaner.removeVisibleDebris
 							end
-
 							UiTranslate(0, 90)
+
 							if UiTextedButton(options.cleaner.removeActiveDebris and "REMOVING ACTIVE" or "IGNORING ACTIVE", "center middle", 480, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
 								options.cleaner.removeActiveDebris = not options.cleaner.removeActiveDebris
 							end
@@ -271,11 +309,53 @@ function InitWindow(dataReference, optionsReference)
 				name = "stabilizer",
 				title = "OBJECT STABILIZER",
 				draw = function(x0, y0, x1, y1)
-					-- Account for navbar size and draw background.
+					-- Account for navbar size and draw background
 					UiAlign("left")
 					UiTranslate(x0, 0)
 					UiColor(0, 0, 0, .8)
 					UiRect(x1, y1)
+
+					-- Draw module description
+					UiPush()
+						UiTranslate(1110, 0)
+
+						UiColor(0, 0, 0, .5)
+						UiRect(600, y1)
+						UiTranslate(300, 30)
+
+						UiFont("bold.ttf", 36)
+						UiColor(1, 1, 1, 1)
+						UiAlign("center top")
+						UiText("DESCRIPTION")
+						UiTranslate(0, 45)
+
+						UiFont("regular.ttf", 18)
+						UiWordWrap(300)
+						UiText("THE OBJECT STABILIZER WORKS BY MAKING ALL OBJECTS FAR AWAY FROM THE PLAYER STATIC, THIS MAKES DESTRUCTION OF LARGE OBJECTS MUCH FASTER.")
+						UiTranslate(0, 120)
+
+						UiFont("bold.ttf", 36)
+						UiColor(1, 1, 1, 1)
+						UiAlign("center top")
+						UiText("USAGE")
+						UiTranslate(0, 45)
+
+						UiFont("regular.ttf", 18)
+						UiWordWrap(300)
+						UiText("THE OBJECT SIZE MULTIPLIER DEFINES HOW LARGE OBJECTS YOU WANT TO FREEZE, THE LARGER THE OBJECTS THE FASTER DESTRUCTIONS WILL BE. THE OPTIONAL BUTTONS IF SET TO IGNORE VISIBLE MAKE OBJECTS ONLY BE FROZEN WHILE NOT SEEN.")
+						UiTranslate(0, 150)
+
+						UiFont("bold.ttf", 36)
+						UiColor(1, 1, 1, 1)
+						UiAlign("center top")
+						UiText("PERFORMANCE")
+						UiTranslate(0, 45)
+
+						UiFont("regular.ttf", 18)
+						UiWordWrap(300)
+						UiText("MEDIUM PERFORMANCE MODULE WITH MEDIUM ARTIFACTS, GOOD FOR LOW CPU USAGE. A GAME CHANGER IN SPECIFIC CASES, OVERALL AVERAGE.")
+						UiTranslate(0, 120)
+					UiPop()
 
 					-- Draw setting elements
 					UiWindow(1320 - x0, y1, false)
@@ -283,19 +363,10 @@ function InitWindow(dataReference, optionsReference)
 						UiTranslate(30, 30)
 						UiFont("bold.ttf", 18)
 
-						-- Draw stabilizer object preview.
-						UiPush()
-							UiAlign("center middle")
-							UiTranslate(1380, y1 / 2)
-
-							UiColor(1, 1, 1, 1)
-							UiImage("assets/gfx/previews/object.png")
-						UiPop()
-
 						-- Left side elements
 						UiPush()
 							UiPush()
-								-- Button text
+								-- Enable and reset buttons
 								UiPush()
 									UiColor(1, 1, 1, 1)
 									UiAlign("center middle")
@@ -342,31 +413,64 @@ function InitWindow(dataReference, optionsReference)
 				name = "fire",
 				title = "FIRE CONTROLLER",
 				draw = function(x0, y0, x1, y1)
-					-- Account for navbar size and draw background.
+					-- Account for navbar size and draw background
 					UiAlign("left")
 					UiTranslate(x0, 0)
 					UiColor(0, 0, 0, .8)
 					UiRect(x1, y1)
+
+					-- Draw module description
+					UiPush()
+						UiTranslate(1110, 0)
+
+						UiColor(0, 0, 0, .5)
+						UiRect(600, y1)
+						UiTranslate(300, 30)
+
+						UiFont("bold.ttf", 36)
+						UiColor(1, 1, 1, 1)
+						UiAlign("center top")
+						UiText("DESCRIPTION")
+						UiTranslate(0, 45)
+
+						UiFont("regular.ttf", 18)
+						UiWordWrap(300)
+						UiText("THE FIRE CONTROLLER WORKS BY LIMITING FIRE TO A SPECIFIC AMOUNT SO THAT YOU CAN BE DESTRUCTIVE WITHOUT MASSIVE FRAME DROPS.")
+						UiTranslate(0, 120)
+
+						UiFont("bold.ttf", 36)
+						UiColor(1, 1, 1, 1)
+						UiAlign("center top")
+						UiText("USAGE")
+						UiTranslate(0, 45)
+
+						UiFont("regular.ttf", 18)
+						UiWordWrap(300)
+						UiText("THE FIRE AMOUNT DEFINES HOW MUCH FIRE THAT SHOULD BE ALLOWED, NOT FULLY ACCURATE BUT WORKS OVERALL. THE SPREAD WILL DECIDE HOW FAST THE FIRE CAN SPREAD, KEEP THIS TO A MINIMUM IN MOST CASES.")
+						UiTranslate(0, 150)
+
+						UiFont("bold.ttf", 36)
+						UiColor(1, 1, 1, 1)
+						UiAlign("center top")
+						UiText("PERFORMANCE")
+						UiTranslate(0, 45)
+
+						UiFont("regular.ttf", 18)
+						UiWordWrap(300)
+						UiText("HIGH PERFORMANCE MODULE WITH LOW ARTIFACTS, GOOD FOR LOW CPU AND GPU USAGE. REALLY USEFUL IN MOST SCENARIOS WHERE FIRES ARE IN THE WAY OF HIGHER FRAMERATES.")
+						UiTranslate(0, 120)
+					UiPop()
 
 					-- Draw setting elements
 					UiWindow(1320 - x0, y1, false)
 					UiPush()
 						UiTranslate(30, 30)
 						UiFont("bold.ttf", 18)
-
-						-- Draw stabilizer object preview.
-						UiPush()
-							UiAlign("center middle")
-							UiTranslate(1380, y1 / 2)
-
-							UiColor(1, 1, 1, 1)
-							UiImage("assets/gfx/previews/object.png")
-						UiPop()
-
+						
 						-- Left side elements
 						UiPush()
 							UiPush()
-								-- Button text
+								-- Enable and reset buttons
 								UiPush()
 									UiColor(1, 1, 1, 1)
 									UiAlign("center middle")
@@ -378,7 +482,7 @@ function InitWindow(dataReference, optionsReference)
 							UiPop()
 							UiTranslate(0, 90)
 
-							-- Amount slider
+							-- Amount title
 							UiPush()
 								UiColor(0, 0, 0, .7)
 								UiRect(480, 30)
@@ -389,6 +493,8 @@ function InitWindow(dataReference, optionsReference)
 								UiText("AMOUNT (LOWER = FASTER)")
 							UiPop()
 							UiTranslate(0, 30)
+
+							-- Amount slider
 							UiPush()
 								options.fire.amount = Round(UiColoredSlider(options.fire.amount, 0, 1000, 480, 60, {0, 0, 0, .5}, {0, 0, 0, .2}), -1, 5)
 							UiPop()
@@ -423,11 +529,53 @@ function InitWindow(dataReference, optionsReference)
 				name = "sun",
 				title = "SUN CONTROLLER",
 				draw = function(x0, y0, x1, y1)
-					-- Account for navbar size and draw background.
+					-- Account for navbar size and draw background
 					UiAlign("left")
 					UiTranslate(x0, 0)
 					UiColor(0, 0, 0, .8)
 					UiRect(x1, y1)
+
+					-- Draw module description
+					UiPush()
+						UiTranslate(1110, 0)
+
+						UiColor(0, 0, 0, .5)
+						UiRect(600, y1)
+						UiTranslate(300, 30)
+
+						UiFont("bold.ttf", 36)
+						UiColor(1, 1, 1, 1)
+						UiAlign("center top")
+						UiText("DESCRIPTION")
+						UiTranslate(0, 45)
+
+						UiFont("regular.ttf", 18)
+						UiWordWrap(300)
+						UiText("THE SUN CONTROLLER WORKS BY LIMITING SUNRAYS IN THE SCENE, THIS MAKES GENERAL GAMEPLAY MORE ENJOYABLE BUT SADLY LESS VISIBLY PLEASING.")
+						UiTranslate(0, 120)
+
+						UiFont("bold.ttf", 36)
+						UiColor(1, 1, 1, 1)
+						UiAlign("center top")
+						UiText("USAGE")
+						UiTranslate(0, 45)
+
+						UiFont("regular.ttf", 18)
+						UiWordWrap(300)
+						UiText("THE BRIGHTNESS WILL LIMIT THE AMOUNT OF SUN IN THE SCENE SO THAT RAYS FADE FASTER, THE SHADOW LENGTH WORKS THE SAME BUT ONLY FOR SHADOWS.")
+						UiTranslate(0, 150)
+
+						UiFont("bold.ttf", 36)
+						UiColor(1, 1, 1, 1)
+						UiAlign("center top")
+						UiText("PERFORMANCE")
+						UiTranslate(0, 45)
+
+						UiFont("regular.ttf", 18)
+						UiWordWrap(300)
+						UiText("MEDIUM PERFORMANCE MODULE WITH HIGH ARTIFACTS, GOOD FOR LOW GPU USAGE. WILL MAKE THE SCENE LOOK VERY DULL FOR A SMALL INCREASE IN FPS, GREAT FOR LARGER MAPS.")
+						UiTranslate(0, 120)
+					UiPop()
 
 					-- Draw setting elements
 					UiWindow(1320 - x0, y1, false)
@@ -435,19 +583,10 @@ function InitWindow(dataReference, optionsReference)
 						UiTranslate(30, 30)
 						UiFont("bold.ttf", 18)
 
-						-- Draw stabilizer object preview.
-						UiPush()
-							UiAlign("center middle")
-							UiTranslate(1380, y1 / 2)
-
-							UiColor(1, 1, 1, 1)
-							UiImage("assets/gfx/previews/object.png")
-						UiPop()
-
 						-- Left side elements
 						UiPush()
 							UiPush()
-								-- Button text
+								-- Enable and reset buttons
 								UiPush()
 									UiColor(1, 1, 1, 1)
 									UiAlign("center middle")
@@ -504,11 +643,53 @@ function InitWindow(dataReference, optionsReference)
 				name = "light",
 				title = "LIGHT CONTROLLER",
 				draw = function(x0, y0, x1, y1)
-					-- Account for navbar size and draw background.
+					-- Account for navbar size and draw background
 					UiAlign("left")
 					UiTranslate(x0, 0)
 					UiColor(0, 0, 0, .8)
 					UiRect(x1, y1)
+
+					-- Draw module description
+					UiPush()
+						UiTranslate(1110, 0)
+
+						UiColor(0, 0, 0, .5)
+						UiRect(600, y1)
+						UiTranslate(300, 30)
+
+						UiFont("bold.ttf", 36)
+						UiColor(1, 1, 1, 1)
+						UiAlign("center top")
+						UiText("DESCRIPTION")
+						UiTranslate(0, 45)
+
+						UiFont("regular.ttf", 18)
+						UiWordWrap(300)
+						UiText("THE LIGHT CONTROLLER WORKS BY HAVING LIGHT SOURCES DIMMED (EXCEPT THE SUN, SEE SUN CONTROLLER MODULE).")
+						UiTranslate(0, 120)
+
+						UiFont("bold.ttf", 36)
+						UiColor(1, 1, 1, 1)
+						UiAlign("center top")
+						UiText("USAGE")
+						UiTranslate(0, 45)
+
+						UiFont("regular.ttf", 18)
+						UiWordWrap(300)
+						UiText("THE LIGHT INTENSITY WILL CHANGE THE LIGHTS INTENSITY SO THAT LESS OR MORE RAYS ARE BOUNCED IN THE SCENE.")
+						UiTranslate(0, 150)
+
+						UiFont("bold.ttf", 36)
+						UiColor(1, 1, 1, 1)
+						UiAlign("center top")
+						UiText("PERFORMANCE")
+						UiTranslate(0, 45)
+
+						UiFont("regular.ttf", 18)
+						UiWordWrap(300)
+						UiText("LOW PERFORMANCE MODULE WITH LOW ARTIFACTS, GOOD FOR LOW CPU AND GPU USAGE. NOT VERY POWERFUL AND SHOULD NOT BE USED UNLESS YOU WANT TO SQUEEZE OUT EVERY FRAME POSSIBLE.")
+						UiTranslate(0, 120)
+					UiPop()
 
 					-- Draw setting elements
 					UiWindow(1320 - x0, y1, false)
@@ -516,23 +697,9 @@ function InitWindow(dataReference, optionsReference)
 						UiTranslate(30, 30)
 						UiFont("bold.ttf", 18)
 
-						-- Draw controller flare preview.
-						UiPush()
-							local color = visual.hslrgb(options.light.color[1], options.light.color[2], options.light.color[3])
-							UiAlign("center middle")
-							UiTranslate(1380, y1 / 2)
-
-							UiColor(1, 1, 1, 1)
-							UiImage("assets/gfx/previews/light_pole.png")
-
-							UiTranslate(0, -220)
-							UiColor(color[1], color[2], color[3], 1)
-							UiImage("assets/gfx/previews/flare.png")
-						UiPop()
-
 						-- Left side elements
 						UiPush()
-							-- Button text
+							-- Enable and reset buttons
 							UiPush()
 								UiColor(1, 1, 1, 1)
 								UiAlign("center middle")
@@ -543,7 +710,7 @@ function InitWindow(dataReference, optionsReference)
 							UiPop()
 							UiTranslate(0, 90)
 
-							-- Intensity slider
+							-- Intensity title
 							UiPush()
 								UiColor(0, 0, 0, .7)
 								UiRect(480, 30)
@@ -554,6 +721,8 @@ function InitWindow(dataReference, optionsReference)
 								UiText("LIGHT INTENSITY (LOWER = FASTER)")
 							UiPop()
 							UiTranslate(0, 30)
+
+							-- Intensity slider
 							UiPush()
 								options.light.intensity = Round(UiColoredSlider(options.light.intensity, 0, 10, 480, 60, {0, 0, 0, .5}, {0, 0, 0, .2}))
 							UiPop()
@@ -573,11 +742,53 @@ function InitWindow(dataReference, optionsReference)
 				name = "fog",
 				title = "FOG CONTROLLER",
 				draw = function(x0, y0, x1, y1)
-					-- Account for navbar size and draw background.
+					-- Account for navbar size and draw background
 					UiAlign("left")
 					UiTranslate(x0, 0)
 					UiColor(0, 0, 0, .8)
 					UiRect(x1, y1)
+
+					-- Draw module description
+					UiPush()
+						UiTranslate(1110, 0)
+
+						UiColor(0, 0, 0, .5)
+						UiRect(600, y1)
+						UiTranslate(300, 30)
+
+						UiFont("bold.ttf", 36)
+						UiColor(1, 1, 1, 1)
+						UiAlign("center top")
+						UiText("DESCRIPTION")
+						UiTranslate(0, 45)
+
+						UiFont("regular.ttf", 18)
+						UiWordWrap(300)
+						UiText("THE FOG CONTROLLER WORKS BY REMOVING FOG IN THE DISTANCE AS IT DOES NOT SEEM TO HAVE AN IMPACT ON THE FRAMERATE.")
+						UiTranslate(0, 120)
+
+						UiFont("bold.ttf", 36)
+						UiColor(1, 1, 1, 1)
+						UiAlign("center top")
+						UiText("USAGE")
+						UiTranslate(0, 45)
+
+						UiFont("regular.ttf", 18)
+						UiWordWrap(300)
+						UiText("THE FOG AMOUNT WILL CHANGE HOW THICK THE FOG IS (IF FOG IS USED IN THE SCENE).")
+						UiTranslate(0, 150)
+
+						UiFont("bold.ttf", 36)
+						UiColor(1, 1, 1, 1)
+						UiAlign("center top")
+						UiText("PERFORMANCE")
+						UiTranslate(0, 45)
+
+						UiFont("regular.ttf", 18)
+						UiWordWrap(300)
+						UiText("VERY LOW PERFORMANCE MODULE WITH VERY LOW ARTIFACTS, NOT VERY USEFUL BUT ADDED TO REMOVE EXTRA EFFECTS.")
+						UiTranslate(0, 120)
+					UiPop()
 
 					-- Draw setting elements
 					UiWindow(1320 - x0, y1, false)
@@ -585,19 +796,10 @@ function InitWindow(dataReference, optionsReference)
 						UiTranslate(30, 30)
 						UiFont("bold.ttf", 18)
 
-						-- Draw stabilizer object preview.
-						UiPush()
-							UiAlign("center middle")
-							UiTranslate(1380, y1 / 2)
-
-							UiColor(1, 1, 1, 1)
-							UiImage("assets/gfx/previews/object.png")
-						UiPop()
-
 						-- Left side elements
 						UiPush()
 							UiPush()
-								-- Button text
+								-- Enable and reset buttons
 								UiPush()
 									UiColor(1, 1, 1, 1)
 									UiAlign("center middle")
@@ -609,7 +811,7 @@ function InitWindow(dataReference, optionsReference)
 							UiPop()
 							UiTranslate(0, 90)
 
-							-- Amount slider
+							-- Amount title
 							UiPush()
 								UiColor(0, 0, 0, .7)
 								UiRect(480, 30)
@@ -620,6 +822,8 @@ function InitWindow(dataReference, optionsReference)
 								UiText("AMOUNT (LOWER = FASTER)")
 							UiPop()
 							UiTranslate(0, 30)
+
+							-- Amount slider
 							UiPush()
 								options.fog.amount = Round(UiColoredSlider(options.fog.amount, 0, 1, 480, 60, {0, 0, 0, .5}, {0, 0, 0, .2}), 2, .005)
 							UiPop()
@@ -678,22 +882,24 @@ function DrawWindow()
 					for pageIteration = 1, #window.pages do
 						local pageName = window.pages[pageIteration].name
 						local pageOptions = options[pageName]
-						local textColor = pageOptions.locked and {1, .9, .9} or (pageOptions.enabled and {.9, 1, .9} or {1, .95, .9})
+						local textColor = pageOptions.enabled and {.9, 1, .9} or {1, .9, .9}
 
-						UiFont("bold.ttf", 18)
-						if UiTextedButton(window.pages[pageIteration].title, "center middle", 240, 60, {0, 0, 0, 0}, pageOptions.enabled and {0, 1, 0} or {1, 0, 0}) then
-							window.page = pageIteration
-						end
+						if HasVersion(pageOptions.version) then
+							UiFont("bold.ttf", 18)
+							if UiTextedButton(window.pages[pageIteration].title, "center middle", 240, 60, {0, 0, 0, 0}, pageOptions.enabled and {0, 1, 0} or {1, 0, 0}) then
+								window.page = pageIteration
+							end
 
-						if window.page == pageIteration then
-							UiPush()
-								UiAlign("left")
-								UiColor(1, 1, 1, .1)
-								UiRect(240, 60)
-							UiPop()
+							if window.page == pageIteration then
+								UiPush()
+									UiAlign("left")
+									UiColor(1, 1, 1, .1)
+									UiRect(240, 60)
+								UiPop()
+							end
+							
+							UiTranslate(0, 60)
 						end
-						
-						UiTranslate(0, 60)
 					end
 				UiPop()
 			end

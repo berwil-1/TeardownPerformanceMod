@@ -7,7 +7,7 @@ local data = {"Performance Mod", 2.5} -- Data stored in here will follow the for
 local options = {{
 	counter = {
 		enabled = false,
-		locked = false,
+		version = 0.7,
 		position = {0, 0},
 		size = 1,
 		textSize = 16,
@@ -23,7 +23,7 @@ local options = {{
 	},
 	cleaner = {
 		enabled = true,
-		locked = false,
+		version = 0.7,
 		curve = 2,
 		multiplier = 0.2,
 		removeVisibleDebris = true,
@@ -31,7 +31,7 @@ local options = {{
 	},
 	stabilizer = {
 		enabled = true,
-		locked = false,
+		version = 0.7,
 		curve = 1,
 		multiplier = 0.2,
 		stabilizeVisibleObjects = true,
@@ -39,19 +39,19 @@ local options = {{
 	},
 	fire = {
 		enabled = true,
-		locked = false,
+		version = 0.8,
 		amount = 200,
 		spread = 1
 	},
 	sun = {
 		enabled = true,
-		locked = false,
+		version = 0.8,
 		brightness = 1,
 		length = 32
 	},
 	light = {
 		enabled = false,
-		locked = false,
+		version = 0.7,
 		color = {1, 1, 1},
 		intensity = 0,
 		colorControl = false,
@@ -59,7 +59,7 @@ local options = {{
 	},
 	fog = {
 		enabled = false,
-		locked = false,
+		version = 0.8,
 		amount = 1
 	}
 }} -- All the module options will be stored here as follows [1]: Fallback options [2]: Mod options
