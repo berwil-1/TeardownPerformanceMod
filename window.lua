@@ -496,7 +496,7 @@ function InitWindow(dataReference, optionsReference)
 
 							-- Amount slider
 							UiPush()
-								options.fire.amount = Round(UiColoredSlider(options.fire.amount, 0, 1000, 480, 60, {0, 0, 0, .5}, {0, 0, 0, .2}), -1, 5)
+								options.fire.amount = Round(UiColoredSlider(options.fire.amount, 0, 10000, 480, 60, {0, 0, 0, .5}, {0, 0, 0, .2}), -2, 50)
 							UiPop()
 							UiTranslate(0, 90)
 
@@ -511,7 +511,7 @@ function InitWindow(dataReference, optionsReference)
 							UiPop()
 							UiTranslate(0, 30)
 							UiPush()
-								options.fire.spread = Round(UiColoredSlider(options.fire.spread, 0, 10, 480, 60, {0, 0, 0, .5}, {0, 0, 0, .2}), 1, 0.05)
+								options.fire.spread = Round(UiColoredSlider(options.fire.spread, 0, 100, 480, 60, {0, 0, 0, .5}, {0, 0, 0, .2}), 0, 0.5)
 							UiPop()
 							UiTranslate(0, 90)
 						UiPop()

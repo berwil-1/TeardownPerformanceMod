@@ -3,7 +3,7 @@
 
 -- Variables
 local initModules = {InitCore, InitWindow}
-local data = {"Performance Mod", 2.5} -- Data stored in here will follow the format as follows [1]: Mod name [2]: Mod version [3]: Curve presets [4]: Current FPS
+local data = {"Performance Mod", 2.6} -- Data stored in here will follow the format as follows [1]: Mod name [2]: Mod version [3]: Curve presets [4]: Current FPS
 local options = {{
 	counter = {
 		enabled = false,

@@ -8,7 +8,7 @@ hook.add("base.draw", "performance.draw", function()
 
 	UiFont("bold.ttf", 100)
 	UiColor(1, 1, 1, 1)
-	UiText("PERFORMANCE MOD v2.5")
+	UiText("PERFORMANCE MOD v2.6")
 
 	UiTranslate(-120, 50)
 	UiFont("bold.ttf", 32)

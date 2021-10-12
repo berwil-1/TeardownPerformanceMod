@@ -4,16 +4,21 @@ local data
 local options
 local totalTicks = 0
 local frames = {}
+local defaultValues = {}
 
+local lastTickStatus = {}
 
 
 function InitCore(dataReference, optionsReference)
 	data = dataReference
 	options = optionsReference[2]
+
+	local fogStart, fogEnd, fogAmount, fogExponent = GetEnvironmentProperty("fogParams")
+	defaultValues = {GetInt("game.fire.maxcount"), GetFloat("game.fire.spread"), GetEnvironmentProperty("sunBrightness"), GetEnvironmentProperty("sunLength"), fogAmount}
 end
 
 function TickCore(dt)
-	-- Average the FPS values every time the total amount of ticks match with the delay.
+	-- Average the FPS values every time the total amount of ticks match with the delay
 	if totalTicks % options.counter.delay == 0 then
 		data[4] = 0
 		for iteration = 1, #frames do
@@ -22,7 +27,7 @@ function TickCore(dt)
 		data[4] = data[4] / 60
 	end
 
-	-- Iterate over all bodies in the scene every 20 ticks (1 / 3 of a in-game second at 60 FPS).
+	-- Iterate over all bodies in the scene every 20 ticks (1 / 3 of a in-game second at 60 FPS)
 	if totalTicks % 20 == 0 then
 		local bodies = GetBodies()
 
@@ -36,7 +41,7 @@ function TickCore(dt)
 			for shapeIteration = 1, #shapes do
 				local shape = shapes[shapeIteration]
 
-				-- The controller for all lights in the level, 
+				-- The controller for all lights in the level
 				if options.light.enabled then
 					local lights = GetShapeLights(shape)
 					
@@ -50,7 +55,7 @@ function TickCore(dt)
 				end
 
 				-- Object stabilizer
-				if options.stabilizer.enabled and VecLength(VecSub(max, min)) < 10 then
+				if options.stabilizer.enabled and VecLength(VecSub(max, min)) < 10 and (not HasTag(body, "escapevehicle")) then
 					local distanceToPlayer = VecLength(VecSub(transform.pos, GetPlayerPos()))
 
 					if distanceToPlayer > 25 and IsBodyDynamic(body) then
@@ -77,14 +82,37 @@ function TickCore(dt)
 		end
 
 		if HasVersion("0.8.0") then
-			SetInt("game.fire.maxcount", options.fire.amount)
-			SetFloat("game.fire.spread", options.fire.spread)
+			if options.fire.enabled then
+				SetInt("game.fire.maxcount", options.fire.amount)
+				SetFloat("game.fire.spread", options.fire.spread)
+			else
+				if lastTickStatus[1] then
+					SetInt("game.fire.maxcount", defaultValues[1])
+					SetFloat("game.fire.spread", defaultValues[2])
+				end
+			end
 
-			local fogStart, fogEnd, fogAmount, fogExponent = GetEnvironmentProperty("fogParams")
-			SetEnvironmentProperty("sunBrightness", options.sun.brightness)
-			SetEnvironmentProperty("sunLength", options.sun.length)
-			SetEnvironmentProperty("fogParams", fogStart, fogEnd, options.fog.amount, fogExponent)
+			if options.fog.enabled then
+				local fogStart, fogEnd, fogAmount, fogExponent = GetEnvironmentProperty("fogParams")
+				SetEnvironmentProperty("fogParams", fogStart, fogEnd, options.fog.amount, fogExponent)
+			else
+				if lastTickStatus[3] then
+					SetEnvironmentProperty("fogParams", fogStart, fogEnd, defaultValues[5], fogExponent)
+				end
+			end
+
+			if options.sun.enabled then
+				SetEnvironmentProperty("sunBrightness", options.sun.enabled and options.sun.brightness or defaultValues[3])
+				SetEnvironmentProperty("sunLength", options.sun.enabled and options.sun.length or defaultValues[4])
+			else
+				if lastTickStatus[2] then
+					SetEnvironmentProperty("sunBrightness", defaultValues[3])
+					SetEnvironmentProperty("sunLength", defaultValues[4])
+				end
+			end
 		end
+
+		lastTickStatus = {options.fire.enabled, options.sun.enabled, options.fog.enabled}
 	end
 
 	-- Modify the variables to fit the current data
