@@ -220,7 +220,7 @@ function InitWindow(dataReference, optionsReference)
 
 						UiFont("regular.ttf", 18)
 						UiWordWrap(300)
-						UiText("THE DEBRIS CLEANER WORKS BY REMOVING SMALL VOXELS THAT CAUSE LOTS OF PHYSICS CALCULATIONS AND ARE BARELY VISIBLE, THIS MAKES DESTRUCTION OF LARGE OBJECTS MUCH FASTER.")
+						UiText("The debris cleaner works by removing small voxels that cause lots of physics calculations and are barely visible, this makes destruction of large objects much faster.")
 						UiTranslate(0, 120)
 
 						UiFont("bold.ttf", 36)
@@ -231,7 +231,7 @@ function InitWindow(dataReference, optionsReference)
 
 						UiFont("regular.ttf", 18)
 						UiWordWrap(300)
-						UiText("THE DEBRIS SIZE MULTIPLIER DEFINES HOW LARGE OBJECTS YOU WANT TO REMOVE, THE LARGER THE OBJECTS THE FASTER DESTRUCTIONS WILL BE. THE OPTIONAL BUTTONS IF SET TO IGNORE VISIBLE/ACTIVE WILL MAKE DEBRIS ONLY BE REMOVED WHILE SEEN/MOVING.")
+						UiText("The debris size multiplier defines how large objects you want to remove, the larger the objects the faster destructions will be. The optional buttons if set to ignore visible/active will make debris only be removed while seen/moved.")
 						UiTranslate(0, 150)
 
 						UiFont("bold.ttf", 36)
@@ -242,7 +242,7 @@ function InitWindow(dataReference, optionsReference)
 
 						UiFont("regular.ttf", 18)
 						UiWordWrap(300)
-						UiText("HIGH PERFORMANCE MODULE WITH MEDIUM ARTIFACTS, GOOD FOR LOW CPU USAGE. IF USED CORRECTLY A VERY POWERFUL MODULE TO MAKE SURE YOU CAN GET MAXIMAL FRAMERATES DURING DESTRUCTION.")
+						UiText("HIGH performance module with MEDIUM artifacts, good for LOW CPU usage. If used correctly a very powerful module to make sure you can get maximal framerates during destruction.")
 						UiTranslate(0, 120)
 					UiPop()
 
@@ -331,7 +331,7 @@ function InitWindow(dataReference, optionsReference)
 
 						UiFont("regular.ttf", 18)
 						UiWordWrap(300)
-						UiText("THE OBJECT STABILIZER WORKS BY MAKING ALL OBJECTS FAR AWAY FROM THE PLAYER STATIC, THIS MAKES DESTRUCTION OF LARGE OBJECTS MUCH FASTER.")
+						UiText("The object stabilizer works by making all objects far away from the player static, this makes destruction of large objects much faster.")
 						UiTranslate(0, 120)
 
 						UiFont("bold.ttf", 36)
@@ -342,7 +342,7 @@ function InitWindow(dataReference, optionsReference)
 
 						UiFont("regular.ttf", 18)
 						UiWordWrap(300)
-						UiText("THE OBJECT SIZE MULTIPLIER DEFINES HOW LARGE OBJECTS YOU WANT TO FREEZE, THE LARGER THE OBJECTS THE FASTER DESTRUCTIONS WILL BE. THE OPTIONAL BUTTONS IF SET TO IGNORE VISIBLE MAKE OBJECTS ONLY BE FROZEN WHILE NOT SEEN.")
+						UiText("The object size multiplier defines how large objects you want to freeze, the larger the objects the faster destructions will be. The optional buttons if set to ignore visible make objects only be frozen while not seen.")
 						UiTranslate(0, 150)
 
 						UiFont("bold.ttf", 36)
@@ -353,7 +353,7 @@ function InitWindow(dataReference, optionsReference)
 
 						UiFont("regular.ttf", 18)
 						UiWordWrap(300)
-						UiText("MEDIUM PERFORMANCE MODULE WITH MEDIUM ARTIFACTS, GOOD FOR LOW CPU USAGE. A GAME CHANGER IN SPECIFIC CASES, OVERALL AVERAGE.")
+						UiText("MEDIUM performance module with HIGH artifacts, good for LOW CPU usage. A game changer in specific cases, overall average.")
 						UiTranslate(0, 120)
 					UiPop()
 
@@ -386,7 +386,7 @@ function InitWindow(dataReference, optionsReference)
 								UiAlign("center middle")
 								UiTranslate(240, 15)
 								UiColor(1, 1, 1, 1)
-								UiText("SIZE MULTIPLIER (LOWER = SLOWER)")
+								UiText("SIZE MULTIPLIER (HIGHER = FASTER)")
 							UiPop()
 							UiTranslate(0, 30)
 							UiPush()
@@ -435,7 +435,7 @@ function InitWindow(dataReference, optionsReference)
 
 						UiFont("regular.ttf", 18)
 						UiWordWrap(300)
-						UiText("THE FIRE CONTROLLER WORKS BY LIMITING FIRE TO A SPECIFIC AMOUNT SO THAT YOU CAN BE DESTRUCTIVE WITHOUT MASSIVE FRAME DROPS.")
+						UiText("The fire controller works by limiting fire to a specific amount so that you can be destructive without massive frame drops.")
 						UiTranslate(0, 120)
 
 						UiFont("bold.ttf", 36)
@@ -446,7 +446,7 @@ function InitWindow(dataReference, optionsReference)
 
 						UiFont("regular.ttf", 18)
 						UiWordWrap(300)
-						UiText("THE FIRE AMOUNT DEFINES HOW MUCH FIRE THAT SHOULD BE ALLOWED, NOT FULLY ACCURATE BUT WORKS OVERALL. THE SPREAD WILL DECIDE HOW FAST THE FIRE CAN SPREAD, KEEP THIS TO A MINIMUM IN MOST CASES.")
+						UiText("The fire amount defines how much fire that should be allowed, not fully accurate but works overall. The spread will decide how fast the fire can spread, keep this to a minimum in most cases.")
 						UiTranslate(0, 150)
 
 						UiFont("bold.ttf", 36)
@@ -457,7 +457,7 @@ function InitWindow(dataReference, optionsReference)
 
 						UiFont("regular.ttf", 18)
 						UiWordWrap(300)
-						UiText("HIGH PERFORMANCE MODULE WITH LOW ARTIFACTS, GOOD FOR LOW CPU AND GPU USAGE. REALLY USEFUL IN MOST SCENARIOS WHERE FIRES ARE IN THE WAY OF HIGHER FRAMERATES.")
+						UiText("HIGH performance module with LOW artifacts, good for LOW CPU and gpu usage. Really useful in most scenarios where fires are in the way of higher framerates or the other way around.")
 						UiTranslate(0, 120)
 					UiPop()
 
@@ -551,7 +551,7 @@ function InitWindow(dataReference, optionsReference)
 
 						UiFont("regular.ttf", 18)
 						UiWordWrap(300)
-						UiText("THE SUN CONTROLLER WORKS BY LIMITING SUNRAYS IN THE SCENE, THIS MAKES GENERAL GAMEPLAY MORE ENJOYABLE BUT SADLY LESS VISIBLY PLEASING.")
+						UiText("The sun controller works by limiting sunrays in the scene, this makes general gameplay more enjoyable but sadly less visibly pleasing.")
 						UiTranslate(0, 120)
 
 						UiFont("bold.ttf", 36)
@@ -562,7 +562,7 @@ function InitWindow(dataReference, optionsReference)
 
 						UiFont("regular.ttf", 18)
 						UiWordWrap(300)
-						UiText("THE BRIGHTNESS WILL LIMIT THE AMOUNT OF SUN IN THE SCENE SO THAT RAYS FADE FASTER, THE SHADOW LENGTH WORKS THE SAME BUT ONLY FOR SHADOWS.")
+						UiText("The brightness will limit the amount of sun in the scene so that rays fade faster, the shadow length works the same but only for shadows.")
 						UiTranslate(0, 150)
 
 						UiFont("bold.ttf", 36)
@@ -573,7 +573,7 @@ function InitWindow(dataReference, optionsReference)
 
 						UiFont("regular.ttf", 18)
 						UiWordWrap(300)
-						UiText("MEDIUM PERFORMANCE MODULE WITH HIGH ARTIFACTS, GOOD FOR LOW GPU USAGE. WILL MAKE THE SCENE LOOK VERY DULL FOR A SMALL INCREASE IN FPS, GREAT FOR LARGER MAPS.")
+						UiText("MEDIUM performance module with HIGH artifacts, good for LOW GPU usage. Will make the scene look very dull for a small increase in FPS, great for larger maps.")
 						UiTranslate(0, 120)
 					UiPop()
 
@@ -665,7 +665,7 @@ function InitWindow(dataReference, optionsReference)
 
 						UiFont("regular.ttf", 18)
 						UiWordWrap(300)
-						UiText("THE LIGHT CONTROLLER WORKS BY HAVING LIGHT SOURCES DIMMED (EXCEPT THE SUN, SEE SUN CONTROLLER MODULE).")
+						UiText("The light controller works by having light sources dimmed (except the sun, see sun controller module).")
 						UiTranslate(0, 120)
 
 						UiFont("bold.ttf", 36)
@@ -676,7 +676,7 @@ function InitWindow(dataReference, optionsReference)
 
 						UiFont("regular.ttf", 18)
 						UiWordWrap(300)
-						UiText("THE LIGHT INTENSITY WILL CHANGE THE LIGHTS INTENSITY SO THAT LESS OR MORE RAYS ARE BOUNCED IN THE SCENE.")
+						UiText("The light intensity will change the lights intensity so that less or more rays are bounced in the scene.")
 						UiTranslate(0, 150)
 
 						UiFont("bold.ttf", 36)
@@ -687,7 +687,7 @@ function InitWindow(dataReference, optionsReference)
 
 						UiFont("regular.ttf", 18)
 						UiWordWrap(300)
-						UiText("LOW PERFORMANCE MODULE WITH LOW ARTIFACTS, GOOD FOR LOW CPU AND GPU USAGE. NOT VERY POWERFUL AND SHOULD NOT BE USED UNLESS YOU WANT TO SQUEEZE OUT EVERY FRAME POSSIBLE.")
+						UiText("Low performance module with LOW artifacts, good for LOW CPU and GPU usage. Not very powerful and should not be enabled unless you want to squeeze out every frame possible.")
 						UiTranslate(0, 120)
 					UiPop()
 
@@ -764,7 +764,7 @@ function InitWindow(dataReference, optionsReference)
 
 						UiFont("regular.ttf", 18)
 						UiWordWrap(300)
-						UiText("THE FOG CONTROLLER WORKS BY REMOVING FOG IN THE DISTANCE AS IT DOES NOT SEEM TO HAVE AN IMPACT ON THE FRAMERATE.")
+						UiText("The fog controller works by removing fog in the distance as it does not seem to have an impact on the framerate.")
 						UiTranslate(0, 120)
 
 						UiFont("bold.ttf", 36)
@@ -775,7 +775,7 @@ function InitWindow(dataReference, optionsReference)
 
 						UiFont("regular.ttf", 18)
 						UiWordWrap(300)
-						UiText("THE FOG AMOUNT WILL CHANGE HOW THICK THE FOG IS (IF FOG IS USED IN THE SCENE).")
+						UiText("The fog amount will change how thick the fog is (if fog is used in the scene).")
 						UiTranslate(0, 150)
 
 						UiFont("bold.ttf", 36)
@@ -786,7 +786,7 @@ function InitWindow(dataReference, optionsReference)
 
 						UiFont("regular.ttf", 18)
 						UiWordWrap(300)
-						UiText("VERY LOW PERFORMANCE MODULE WITH VERY LOW ARTIFACTS, NOT VERY USEFUL BUT ADDED TO REMOVE EXTRA EFFECTS.")
+						UiText("Very LOW performance module with very LOW artifacts, not very useful but added to remove extra effects.")
 						UiTranslate(0, 120)
 					UiPop()
 

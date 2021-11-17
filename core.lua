@@ -2,11 +2,11 @@
 
 local data
 local options
-local totalTicks = 0
+local ticks = 0
 local frames = {}
 local defaultValues = {}
-
 local lastTickStatus = {}
+
 
 
 function InitCore(dataReference, optionsReference)
@@ -19,7 +19,8 @@ end
 
 function TickCore(dt)
 	-- Average the FPS values every time the total amount of ticks match with the delay
-	if totalTicks % options.counter.delay == 0 then
+	frames[ticks % 60 + 1] = 1 / dt
+	if ticks % options.counter.delay == 0 then
 		data[4] = 0
 		for iteration = 1, #frames do
 			data[4] = data[4] + frames[iteration]
@@ -28,7 +29,7 @@ function TickCore(dt)
 	end
 
 	-- Iterate over all bodies in the scene every 20 ticks (1 / 3 of a in-game second at 60 FPS)
-	if totalTicks % 20 == 0 then
+	if ticks % math.floor(math.max(frames[ticks % 60 + 1] - 30, 1)) == 0 then
 		local bodies = GetBodies()
 
 		for bodyIteration = 1, #bodies do
@@ -37,9 +38,39 @@ function TickCore(dt)
 			local bodyMass = GetBodyMass(body)
 			local min, max = GetBodyBounds(body)
 			local transform = GetBodyTransform(body)
+			local broken = IsBodyBroken(body)
+
+			-- Debris cleaner
+			if options.cleaner.enabled then
+				if broken and VecLength(VecSub(max, min)) < data[3][options.cleaner.curve][2](math.floor(data[4])) * options.cleaner.multiplier and (bodyMass > 0 and bodyMass < 200) then
+					if (options.cleaner.removeActiveDebris or not IsBodyActive(body)) and (options.cleaner.removeVisibleDebris or not IsBodyVisible(body, 50)) and not (HasTag(body, "target") or HasTag(GetBodyShapes(body)[1], "alarmbox")) then
+						Delete(body)
+					end
+				end
+			end
 
 			for shapeIteration = 1, #shapes do
 				local shape = shapes[shapeIteration]
+
+				-- Object stabilizer
+				if options.stabilizer.enabled then
+					if broken and VecLength(VecSub(max, min)) < 10 and (not HasTag(body, "escapevehicle")) then
+						local distanceToPlayer = VecLength(VecSub(GetShapeWorldTransform(shape).pos, GetPlayerPos()))
+
+						-- Set the body to be static
+						if distanceToPlayer > 25 and IsBodyDynamic(body) then
+							if options.stabilizer.stabilizeActiveObjects == IsBodyActive(body) and options.stabilizer.stabilizeVisibleObjects == IsBodyVisible(body, 50) then
+								SetBodyDynamic(body, false)
+							end
+						end
+
+						-- Set the body back to dynamic
+						if distanceToPlayer <= 25 and not IsBodyDynamic(body) then
+							SetBodyDynamic(body, true)
+							SetBodyVelocity(body, Vec(0, 0, 0))
+						end
+					end
+				end
 
 				-- The controller for all lights in the level
 				if options.light.enabled then
@@ -51,31 +82,6 @@ function TickCore(dt)
 						
 						if options.light.colorControl then SetLightColor(light, lightColor[1], lightColor[2], lightColor[3]) end
 						if options.light.intensityControl and options.light.intensity > .1 then SetLightIntensity(light, options.light.intensity) else SetLightEnabled(light, false) end
-					end
-				end
-
-				-- Object stabilizer
-				if options.stabilizer.enabled and VecLength(VecSub(max, min)) < 10 and (not HasTag(body, "escapevehicle")) then
-					local distanceToPlayer = VecLength(VecSub(transform.pos, GetPlayerPos()))
-
-					if distanceToPlayer > 25 and IsBodyDynamic(body) then
-						if options.stabilizer.stabilizeActiveObjects == IsBodyActive(body) and options.stabilizer.stabilizeVisibleObjects == IsBodyVisible(body, 50) then
-							SetBodyDynamic(body, false)
-						end
-					end
-
-					if distanceToPlayer <= 25 and not IsBodyDynamic(body) then
-						SetBodyDynamic(body, true)
-						SetBodyVelocity(body, Vec(0, 0, 0))
-					end
-				end
-			end
-
-			-- Debris cleaner
-			if options.cleaner.enabled then
-				if IsBodyBroken(body) and VecLength(VecSub(max, min)) < data[3][options.cleaner.curve][2](math.floor(data[4])) * options.cleaner.multiplier and (bodyMass > 0 and bodyMass < 200) then
-					if (options.cleaner.removeActiveDebris or not IsBodyActive(body)) and (options.cleaner.removeVisibleDebris or not IsBodyVisible(body, 50)) and not (HasTag(body, "target") or HasTag(GetBodyShapes(body)[1], "alarmbox")) then
-						Delete(body)
 					end
 				end
 			end
@@ -116,6 +122,5 @@ function TickCore(dt)
 	end
 
 	-- Modify the variables to fit the current data
-	frames[totalTicks % 60 + 1] = 1 / dt
-	totalTicks = totalTicks + 1
+	ticks = ticks + 1
 end
