@@ -3,7 +3,7 @@
 
 -- Variables
 local initModules = {InitCore, InitWindow}
-local data = {"Performance Mod", 2.6} -- Data stored in here will follow the format as follows [1]: Mod name [2]: Mod version [3]: Curve presets [4]: Current FPS
+local data = {"Performance Mod", 2.7} -- Data stored in here will follow the format as follows [1]: Mod name [2]: Mod version [3]: Curve presets [4]: Current FPS [5]: Body count [6]: Shape count [7]: Fire count
 local options = {{
 	counter = {
 		enabled = false,
@@ -38,13 +38,13 @@ local options = {{
 		stabilizeActiveObjects = false
 	},
 	fire = {
-		enabled = true,
+		enabled = false,
 		version = 0.8,
 		amount = 200,
 		spread = 1
 	},
 	sun = {
-		enabled = true,
+		enabled = false,
 		version = 0.8,
 		brightness = 1,
 		length = 32
@@ -66,7 +66,7 @@ local options = {{
 
 
 
-hook.add("base.init", "performance.init", function()
+local init = function()
 	-- Check if the user uses a version before 2.5 or invalid version number (version number shouldn't be less then 2.5).
 	-- If true then switch over to use the post 2.5 system.
 	if not HasKey("savegame.mod.version") or GetFloat("savegame.mod.version") < 2.5 then
@@ -89,7 +89,7 @@ hook.add("base.init", "performance.init", function()
 		SetString("savegame.mod.keybind", "p")
 	end
 
-	-- Initialize the functions used to draw curves or increase values in different ways.
+	-- Initialize the functions used to draw curves or increase values in different ways (depricated).
 	data[3] = {
 		{"CONSTANT", function(value) return 10 end},
 		{"LINEAR", function(value) return math.max(60 - value, 0) end},
@@ -101,12 +101,13 @@ hook.add("base.init", "performance.init", function()
 	for index,module in pairs(initModules) do
 		module(data, options)
 	end
-end)
+end
 
+hook.add("base.init", "performance.init", init)
+hook.add("base.command.quickload", "performance.quickload", init)
 hook.add("base.draw", "performance.draw", function()
 	DrawWindow()
 end)
-
 hook.add("base.tick", "performance.tick", function(dt)
 	TickWindow(dt)
 	TickCore(dt)

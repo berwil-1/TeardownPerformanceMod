@@ -1,7 +1,8 @@
 #include "umf/umf_meta.lua"
 #include "umf/umf_utils.lua"
 
-
+local VEC_MIN = Vec(-math.huge, -math.huge, -math.huge)
+local VEC_MAX = Vec(math.huge, math.huge, math.huge) 
 
 -- UI functions
 	function UiDrawLine(dx, dy, r, g, b, a)
@@ -110,7 +111,7 @@
 			local yAlignment = Round(2 * options.counter.position[2] / UiHeight())
 
 			local enabledCounts = 0
-			local counts = {{options.counter.frameCount, CalculateFrameAccuracy(data[4], options), "FPS"}, {options.counter.bodyCount, GetBodyCount(), "BOD"}, {options.counter.shapeCount, GetShapeCount(), "SHA"}, {options.counter.fireCount, GetFireCount(), "FIR"}}
+			local counts = {{options.counter.frameCount, CalculateFrameAccuracy(data[4], options), "FPS"}, {options.counter.bodyCount, data[5], "BOD"}, {options.counter.shapeCount, data[6], "SHA"}, {options.counter.fireCount, data[7], "FIR"}}
 			for enabledCountsIteration = 1, #counts do
 				enabledCounts = enabledCounts + (counts[enabledCountsIteration][1] and 1 or 0)
 			end
@@ -153,20 +154,20 @@
 		return util.unserialize(util.serialize(object))
 	end
 
-	function GetBodies(require)
+	function GetBodies(min, max, require)
 		QueryRequire(require and require or "")
-		return QueryAabbBodies(Vec(-math.huge, -math.huge, -math.huge),Vec(math.huge, math.huge, math.huge))
+		return QueryAabbBodies(min and min or VEC_MIN, max and max or VEC_MAX)
 	end
-	function GetBodyCount(require)
+	function GetBodyCount(min, max, require)
 		QueryRequire(require and require or "")
-		return #QueryAabbBodies(Vec(-math.huge, -math.huge, -math.huge),Vec(math.huge, math.huge, math.huge))
+		return #QueryAabbBodies(min and min or VEC_MIN, max and max or VEC_MAX)
 	end
 
-	function GetShapes(require)
-		return QueryAabbShapes(Vec(-math.huge, -math.huge, -math.huge), Vec(math.huge, math.huge, math.huge))
+	function GetShapes(min, max, require)
+		return QueryAabbShapes(min and min or VEC_MIN, max and max or VEC_MAX)
 	end
-	function GetShapeCount(require)
-		return #QueryAabbShapes(Vec(-math.huge, -math.huge, -math.huge), Vec(math.huge, math.huge, math.huge))
+	function GetShapeCount(min, max, require)
+		return #QueryAabbShapes(min and min or VEC_MIN, max and max or VEC_MAX)
 	end
 
 -- Mathematical functions

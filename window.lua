@@ -2,6 +2,7 @@
 
 local data
 local options
+local draws = 0
 local fallbackOptions
 local window
 
@@ -38,7 +39,7 @@ function InitWindow(dataReference, optionsReference)
 						local textColor = visual.hslrgb(options.counter.textColor[1][1], options.counter.textColor[1][2], options.counter.textColor[1][3])
 						UiColor(textColor[1], textColor[2], textColor[3], options.counter.textColor[2])
 
-						local counts = {{options.counter.frameCount, CalculateFrameAccuracy(data[4], options), "FPS"}, {options.counter.bodyCount, GetBodyCount(), "BOD"}, {options.counter.shapeCount, GetShapeCount(), "SHA"}, {options.counter.fireCount, GetFireCount(), "FIR"}}
+						local counts = {{options.counter.frameCount, CalculateFrameAccuracy(data[4], options), "FPS"}, {options.counter.bodyCount, GetBodyCount(VecSub(GetPlayerPos(), Vec(100, 100, 100)), VecAdd(GetPlayerPos(), Vec(100, 100, 100))), "BOD"}, {options.counter.shapeCount, GetShapeCount(VecSub(GetPlayerPos(), Vec(100, 100, 100)), VecAdd(GetPlayerPos(), Vec(100, 100, 100))), "SHA"}, {options.counter.fireCount, GetFireCount(), "FIR"}}
 						
 						UiTranslate(25, 75)
 						for countIteration = 1, 4 do
@@ -914,4 +915,6 @@ function DrawWindow()
 			UiInformationCounter(0, 0, 1, data, options)
 		end
 	end
+	
+	draws = draws + 1
 end
