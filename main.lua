@@ -3,11 +3,11 @@
 
 -- Variables
 local initModules = {InitCore, InitWindow}
-local data = {"Performance Mod", 2.1} -- Data stored in here will follow the format as follows [1]: Mod name [2]: Mod version [3]: Curve presets [4]: Current FPS
+local data = {"Performance Mod", 2.7} -- Data stored in here will follow the format as follows [1]: Mod name [2]: Mod version [3]: Curve presets [4]: Current FPS [5]: Body count [6]: Shape count [7]: Fire count
 local options = {{
 	counter = {
 		enabled = false,
-		locked = false,
+		version = 0.7,
 		position = {0, 0},
 		size = 1,
 		textSize = 16,
@@ -21,40 +21,55 @@ local options = {{
 		shapeCount = false,
 		fireCount = false
 	},
-	controller = {
-		enabled = false,
-		locked = false,
-		color = {1, 1, 1},
-		intensity = 0,
-		colorControl = false,
-		intensityControl = true
-	},
 	cleaner = {
 		enabled = true,
-		locked = false,
-		curve = 1,
+		version = 0.7,
+		curve = 2,
 		multiplier = 0.2,
-		fallbackSize = 10,
 		removeVisibleDebris = true,
 		removeActiveDebris = true
 	},
 	stabilizer = {
 		enabled = true,
-		locked = false,
+		version = 0.7,
 		curve = 1,
 		multiplier = 0.2,
-		fallbackSize = 10,
-		stabilizeVisibleDebris = true,
+		stabilizeVisibleObjects = true,
 		stabilizeActiveObjects = false
+	},
+	fire = {
+		enabled = false,
+		version = 0.8,
+		amount = 200,
+		spread = 1
+	},
+	sun = {
+		enabled = false,
+		version = 0.8,
+		brightness = 1,
+		length = 32
+	},
+	light = {
+		enabled = false,
+		version = 0.7,
+		color = {1, 1, 1},
+		intensity = 0,
+		colorControl = false,
+		intensityControl = true
+	},
+	fog = {
+		enabled = false,
+		version = 0.8,
+		amount = 1
 	}
 }} -- All the module options will be stored here as follows [1]: Fallback options [2]: Mod options
 
 
 
-hook.add("base.init", "performance.init", function()
-	-- Check if the user uses a version before 2.0 or invalid version number (version number shouldn't be less then 2.0).
-	-- If true then switch over to use the post 2.0 system.
-	if not HasKey("savegame.mod.version") or GetFloat("savegame.mod.version") < 2.0 then
+local init = function()
+	-- Check if the user uses a version before 2.5 or invalid version number (version number shouldn't be less then 2.5).
+	-- If true then switch over to use the post 2.5 system.
+	if not HasKey("savegame.mod.version") or GetFloat("savegame.mod.version") < 2.5 then
 		ClearKey("savegame.mod")
 		SetFloat("savegame.mod.version", data[2])
 		SetString("savegame.mod.keybind", "p")
@@ -74,9 +89,9 @@ hook.add("base.init", "performance.init", function()
 		SetString("savegame.mod.keybind", "p")
 	end
 
-	-- Initialize the functions used to draw curves or increase values in different ways.
+	-- Initialize the functions used to draw curves or increase values in different ways (depricated).
 	data[3] = {
-		{"CONSTANT", function(value) return options[2].cleaner.fallbackSize end},
+		{"CONSTANT", function(value) return 10 end},
 		{"LINEAR", function(value) return math.max(60 - value, 0) end},
 		{"EXPONENTIAL", function(value) return math.max(30.07462 - (0.00003718851 / -0.1998865) * (1 - math.exp(1) ^ (0.1998865 * value)), 0) end},
 		{"INVERSE", function(value) return 3.48986 * 10 ^ 12 * value ^ -7.491398 end}
@@ -86,12 +101,13 @@ hook.add("base.init", "performance.init", function()
 	for index,module in pairs(initModules) do
 		module(data, options)
 	end
-end)
+end
 
+hook.add("base.init", "performance.init", init)
+hook.add("base.command.quickload", "performance.quickload", init)
 hook.add("base.draw", "performance.draw", function()
 	DrawWindow()
 end)
-
 hook.add("base.tick", "performance.tick", function(dt)
 	TickWindow(dt)
 	TickCore(dt)

@@ -1,4 +1,4 @@
-#include "umf/umf_3d.lua"
+#include "assets/scripts/util.lua"
 
 
 
@@ -8,12 +8,18 @@ hook.add("base.draw", "performance.draw", function()
 
 	UiFont("bold.ttf", 100)
 	UiColor(1, 1, 1, 1)
-	UiText("PERFORMANCE MOD v2.1")
+	UiText("PERFORMANCE MOD v2.7")
 
 	UiTranslate(-120, 50)
 	UiFont("bold.ttf", 32)
-	if UiTextedButton("Keybind » ALT + " .. GetString("savegame.mod.keybind"):upper(), "center middle", 240, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
+	if UiTextedButton("Keybind » ALT + " .. (HasKey("savegame.mod.keybind") and GetString("savegame.mod.keybind"):upper() or "P"), "center middle", 240, 60, {0, 0, 0, .5}, {1, 1, 1, 1}) then
 		SetString("savegame.mod.keybind", "?")
+	end
+
+	UiTranslate(75, 450)
+	UiFont("bold.ttf", 12)
+	if UiTextedButton("CLEAR OPTIONS", "center middle", 120, 30, {0, 0, 0, .5}, {1, 0, 0, 1}) then
+		ClearKey("savegame.mod")
 	end
 end)
 
