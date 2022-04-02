@@ -1,0 +1,38 @@
+[b]ABOUT[/b]
+A mod that will try to increase performance when large objects are destroyed.
+This is still in the works so please have this in mind when you rate the mod, and make sure to ask on Discord if it does not work for you so that it can be fixed!
+
+[b]USAGE (read before you ask)[/b]
+To show the mod user interface you hold the left ALT button down and then press the letter P (as default), if it does not work then press ESC on your keyboard and click on the button named Performance Mod at the bottom (you may need to scroll over this area to find it). If neither of the above works, make sure the mod is enabled in the mod menu and that you have not changed the default bind in the mod options (confused, contact me and I will assist you when I'm available).
+
+The default user interface letter can be changed in the mods menu, simply select the Performance Mod in the mod menu and press the options button above the enable button. Here you should find a text button that makes you able to modify the bind (note, this will not remove ALT as the primary button).
+
+If the user interface works you will find a few buttons on the left side (if none show, you have an outdated version or a corrupt savegame file), these can be interacted with and be enabled or disabled.
+You will be able to configure each module to your preference with buttons, sliders, and color pickers. On the far right side, you will find a small description of what is intended with the module and how the configurations interact with the environment.
+
+[b]PLANNED[/b]
+[list]
+    [*] Collision avoidance to reduce collision calculations.
+    [*] Detour slow functions for better methods.
+    [*][strike] Control over fire and particle amounts. [/strike]
+    [*] Benchmark with built-in level and statistics and score save.
+    [*] A way to hide certain UI elements.
+    [*] Some form of render distance.
+    [*] Despawn time on debris.
+    [*] And much more, please [url=github.com/CoolJWB/TeardownPerformanceMod]contribute to the project on Github[/url]
+[/list]
+
+[b]KNOWN ISSUES[/b]
+[list]
+    [*] Doesn't work on all campaign levels.
+    [*] Cannot be accessed from the main menu.
+    [*] Issues with ragdolls if debris size is too high.
+    [*] Light controller doesn't fully work.
+[/list]
+
+[b]ASSISTANCE[/b]
+If you need assistance with this mod you can contact me on [url=https://discord.gg/gHxHgvk]my own discord server[/url] or the [url=https://discord.com/invite/teardown]official Teardown server[/url].
+I'm not always awake so beware of delays!
+
+[b]Thanks to everyone who supports the project, [url=github.com/CoolJWB/TeardownPerformanceMod]you can now contribute to it yourself here![/url]![/b]
+And a special thanks to early supporters like [url=https://steamcommunity.com/profiles/76561198044940820]The Mafia[/url], [url=https://steamcommunity.com/profiles/76561198141838411]KV[/url] and [url=https://steamcommunity.com/id/Narc140/]Narcrate140[/url]!
