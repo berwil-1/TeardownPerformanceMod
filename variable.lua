@@ -19,10 +19,12 @@ version = 3.0
 
 options = {
 	general = {
+		enabled = true,
 		keybind = "p",
 		theme = "dark",
 		advanced = true,
 		speedrun = false,
+		hidden = true,
 		experimental = false,
 		debug = false
 	},

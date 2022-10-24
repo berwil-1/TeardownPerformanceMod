@@ -27,7 +27,7 @@ function InterfaceNavigation()
 				selected = module
 			end
 
-			if module.options.enabled ~= nil then
+			if module.options.enabled ~= nil and (not module.options.hidden) then
 				interface.text({ text = module.options.enabled and "ON" or "OFF", alignment = "right middle", translate = { x = 385, y = 30 }, font = theme.textFont }, module.options.enabled and theme.textEnabled or theme.textDisabled)
 			end
 
