@@ -27,10 +27,12 @@ general.interface = function()
 	end
 	UiTranslate(0, 60)
 	
-	if interface.buttonSwitch("SPEEDRUN MODE", 400, 60, general.options.speedrun) then
-		general.options.speedrun = not general.options.speedrun
+	if inMenu then
+		if interface.buttonSwitch("SPEEDRUN MODE", 400, 60, general.options.speedrun) then
+			general.options.speedrun = not general.options.speedrun
+		end
+		UiTranslate(0, 60)
 	end
-	UiTranslate(0, 60)
 	
 	if interface.buttonSwitch("EXPERIMENTAL MODE", 400, 60, general.options.experimental) then
 		general.options.experimental = not general.options.experimental

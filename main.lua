@@ -1,8 +1,11 @@
 -- Interface
-#include "assets/interface/window.lua"
+#include "variable.lua"
 #include "assets/umf/umf_meta.lua"
+#include "assets/interface/window.lua"
 
 local init = function()
+	DebugPrint("interf " .. util.serialize(interface))
+
 	for _, module in pairs(modules) do
 		if module.init then
 			module.init()
@@ -13,6 +16,7 @@ end
 local ticks = 0
 local bodies, shapes
 local drawInterface = false
+local forbiddenModules = {debris = true, fire = true, render = true}
 local tick = function(deltaTime)
 	if InputDown("alt") and InputPressed(modules[1].options.keybind) then
 		SetString("savegame.mod.options", util.serialize(options))
@@ -26,7 +30,7 @@ local tick = function(deltaTime)
 	-- Iterate functions available on all entities once,
 	-- hooks to bodies, shapes and lights should always be used since they minimize the amount of iterations needed.
 	for _, module in pairs(modules) do
-		if module.options.enabled then
+		if module.options.enabled and not (options.general.speedrun and forbiddenModules[module.name] ~= nil) then
 			if module.tick then module.tick(ticks, deltaTime) end
 
 			local bodyLength = #bodies
@@ -58,7 +62,7 @@ local draw = function()
 	draws = draws + 1
 end
 
-local interface = function()
+local interfaced = function()
 	if drawInterface then
 		UiPush()
 			DrawInterface()
@@ -89,7 +93,7 @@ end
 hook.add("base.init", "performance.init", init)
 hook.add("base.tick", "performance.tick", tick)
 hook.add("base.draw", "performance.draw", draw)
-hook.add("base.draw", "performance.interface", interface)
+hook.add("base.draw", "performance.interface", interfaced)
 hook.add("base.command.quickload", "performance.quickload", init)
 hook.add("api.key.pressed", "performance.key.pressed", pressed)
 hook.add("api.key.released", "performance.key.released", released)

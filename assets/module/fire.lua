@@ -38,7 +38,6 @@ fire.tick = function(ticks)
 		end
 	end
 
-
 	if ticks % 60 == 0 then
 		SetInt("game.fire.maxcount", fire.options.fireLimit)
 		SetInt("game.fire.spread", fire.options.fireSpread)

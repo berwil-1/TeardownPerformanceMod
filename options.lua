@@ -1,6 +1,8 @@
 -- Interface
 #include "assets/interface/window.lua"
 
+inMenu = true
+
 local init = function()
     for name, module in pairs(modules) do
         if module.init then
@@ -11,9 +13,7 @@ end
 
 local draws = 0
 local draw = function()
-	UiColor(1, 1, 1, 1)
-	UiRect(UiWidth(), UiHeight())
-
+    UiImage("MOD/assets/image/background/options.png")
     UiPush()
         DrawInterface()
     UiPop()
