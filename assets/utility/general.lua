@@ -1,6 +1,3 @@
--- UMF
-#include "../umf/umf_utils.lua"
-
 local VEC_MAX = Vec(math.huge, math.huge, math.huge)
 local VEC_MIN = Vec(-math.huge, -math.huge, -math.huge)
 

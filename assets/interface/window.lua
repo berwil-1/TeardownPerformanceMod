@@ -1,6 +1,7 @@
 -- Utility
 --#include "../../variable.lua"
-#include "interface.lua"
+--#include "interface.lua"
+#include "../umf/umf_meta.lua"
 
 local interface = interface
 local selected = modules[1]
@@ -24,8 +25,8 @@ function InterfaceNavigation()
 	UiTranslate(0, 100)
 
 	for _, module in pairs(modules) do
-		if not (options.general.speedrun and forbiddenModules[module.name] ~= nil) then
-	        if module.interface and not (module.experimental and not options.general.experimental) then
+		if module.interface and not (options.general.speedrun and forbiddenModules[module.name] ~= nil) then
+	        if not (module.experimental and not options.general.experimental) then
 	        	if interface.buttonText({ text = string.upper(module.name), alignment = "left middle", translate = { x = 15, y = 30 }, font = module.name == selected.name and theme.textFontBold or theme.textFont }, 400, 60, theme.button, theme.text, theme.buttonPressed) then
 					selected = module
 				end

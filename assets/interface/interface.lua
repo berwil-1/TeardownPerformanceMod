@@ -1,6 +1,3 @@
-#include "../umf/umf_meta.lua"
-#include "../umf/umf_utils.lua"
-
 interface = {}
 
 interface.color = function(color, alpha)

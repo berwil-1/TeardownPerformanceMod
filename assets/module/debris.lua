@@ -22,7 +22,6 @@ debris.shape = function(shape)
 	local broken = IsShapeBroken(shape)
 
 	if debris.options.collider then
-		DebugWatch("collider")
 		if broken and count < options.debris.colliderVoxelCount then
 			if options.general.debug then
 				DrawShapeOutline(shape, 1, 0, 0, 1)
@@ -36,7 +35,6 @@ debris.shape = function(shape)
 	if smart and GetTimeStep() < 0.02 then return end
 
 	if debris.options.cleaner then
-		DebugWatch("cleaner")
 		if broken and count < debris.options.cleanerVoxelCount then
 			if debris.options.particle then
 				local sizex, sizey, sizez = GetShapeSize(shape)
@@ -79,7 +77,6 @@ debris.shape = function(shape)
 	if smart and GetTimeStep() < 0.025 then return end
 
 	if debris.options.stabilizer then
-		DebugWatch("stabilizer")
 		if count < options.debris.stabilizerVoxelCount then
 			if stabilized[body] and VecLength(VecSub(GetPlayerTransform().pos, GetShapeWorldTransform(shape).pos)) < debris.options.stabilizerRadius then
 				if options.general.debug then

@@ -6,7 +6,6 @@ light.init = function()
 end
 
 light.disable = function()
-	DebugPrint(shadowLimit)
 	SetEnvironmentProperty("sunLength", shadowLimit)
 end
 

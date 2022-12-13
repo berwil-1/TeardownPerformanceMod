@@ -4,8 +4,6 @@
 #include "assets/interface/window.lua"
 
 local init = function()
-	DebugPrint("interf " .. util.serialize(interface))
-
 	for _, module in pairs(modules) do
 		if module.init then
 			module.init()
@@ -62,7 +60,7 @@ local draw = function()
 	draws = draws + 1
 end
 
-local interfaced = function()
+local interface = function()
 	if drawInterface then
 		UiPush()
 			DrawInterface()
@@ -93,7 +91,7 @@ end
 hook.add("base.init", "performance.init", init)
 hook.add("base.tick", "performance.tick", tick)
 hook.add("base.draw", "performance.draw", draw)
-hook.add("base.draw", "performance.interface", interfaced)
+hook.add("base.draw", "performance.interface", interface)
 hook.add("base.command.quickload", "performance.quickload", init)
 hook.add("api.key.pressed", "performance.key.pressed", pressed)
 hook.add("api.key.released", "performance.key.released", released)
