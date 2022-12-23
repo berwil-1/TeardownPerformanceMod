@@ -1,8 +1,3 @@
--- Utility
---#include "../../variable.lua"
---#include "interface.lua"
---#include "../umf/umf_meta.lua"
-
 local interface = interface
 local selected = modules[1]
 local forbiddenModules = {debris = true, fire = true, render = true}
@@ -49,8 +44,8 @@ function InformationSection()
 
 	if options.general.speedrun then
 		interface.text({ text = "WARNING", alignment = "left middle", translate = { x = 15, y = 30 }, font = theme.textFontBold }, theme.text)
-		interface.text({ text = "The speedrun mode will disable some", alignment = "left middle", translate = { x = 15, y = 60 }, font = theme.textFont }, theme.text)
-		interface.text({ text = "features of this mod.", alignment = "left middle", translate = { x = 15, y = 90 }, font = theme.textFont }, theme.text)
+		interface.text({ text = "The speedrun mode can only be", alignment = "left middle", translate = { x = 15, y = 60 }, font = theme.textFont }, theme.text)
+		interface.text({ text = "disabled from main menu.", alignment = "left middle", translate = { x = 15, y = 90 }, font = theme.textFont }, theme.text)
 	end
 end
 
