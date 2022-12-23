@@ -47,7 +47,6 @@ function general.interface()
 	if interface.buttonText({ text = "RESET ALL", alignment = "left middle", translate = { x = 15, y = 30 } }, 400, 60, theme.buttonReset, theme.text) then
 		for _, module in pairs(modules) do
 			module.options = Clone(module.default)
-			DebugPrint(util.serialize(options[module.name]))
 			options[module.name] = Clone(module.default)
 		end
 	end
