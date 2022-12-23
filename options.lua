@@ -1,4 +1,5 @@
 -- Interface
+#include "variable.lua"
 #include "assets/interface/window.lua"
 
 inMenu = true
