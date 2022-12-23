@@ -15,7 +15,7 @@ local bodies, shapes
 local drawInterface = false
 local forbiddenModules = {debris = true, fire = true, render = true}
 local tick = function(deltaTime)
-	if InputDown("alt") and InputPressed(modules[1].options.keybind) then
+	if (InputDown("alt") and InputPressed(modules[1].options.keybind)) or PauseMenuButton("Performance Mod") then
 		SetString("savegame.mod.options", util.serialize(options))
 		drawInterface = not drawInterface
 	end
