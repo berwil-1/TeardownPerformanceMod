@@ -1,3 +1,5 @@
+#include "../umf/umf_meta.lua"
+
 local interface = interface
 local selected = modules[1]
 local forbiddenModules = {debris = true, fire = true, render = true}
