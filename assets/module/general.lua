@@ -22,29 +22,29 @@ function general.interface()
 	interface.text({ text = "GENERAL", alignment = "center middle", translate = { x = 200, y = 20 }, font = "MOD/assets/font/libsans_bold.ttf" }, {1, 1, 1, 1})
 	UiTranslate(0, 40)
 
-	if interface.buttonSwitch("ADVANCED MODE", 400, 60, general.options.advanced) then
+	if interface.buttonSwitch({ text = "ADVANCED MODE", description = "ADVANCED MODE,Only for the experienced users, shows more options.", alignment = "left middle", translate = { x = 15, y = 30 } }, 400, 60, general.options.advanced) then
 		general.options.advanced = not general.options.advanced
 	end
 	UiTranslate(0, 60)
 	
 	if inMenu then
-		if interface.buttonSwitch("SPEEDRUN MODE", 400, 60, general.options.speedrun) then
+		if interface.buttonSwitch({ text = "SPEEDRUN MODE", description = "SPEEDRUN MODE,Must be used during speedruns to avoid unfair advantages.", alignment = "left middle", translate = { x = 15, y = 30 } }, 400, 60, general.options.speedrun) then
 			general.options.speedrun = not general.options.speedrun
 		end
 		UiTranslate(0, 60)
 	end
 	
-	if interface.buttonSwitch("EXPERIMENTAL MODE", 400, 60, general.options.experimental) then
+	if interface.buttonSwitch({ text = "EXPERIMENTAL MODE", description = "EXPERIMENTAL MODE,Some features are experimental, use at own risk as they may lower performance.", alignment = "left middle", translate = { x = 15, y = 30 } }, 400, 60, general.options.experimental) then
 		general.options.experimental = not general.options.experimental
 	end
 	UiTranslate(0, 60)
 	
-	if interface.buttonSwitch("DEBUG MODE", 400, 60, general.options.debug) then
+	if interface.buttonSwitch({ text = "DEBUG MODE", description = "DEBUG MODE,Intended for developers.", alignment = "left middle", translate = { x = 15, y = 30 } }, 400, 60, general.options.debug) then
 		general.options.debug = not general.options.debug
 	end
 	UiTranslate(0, 60)
 
-	if interface.buttonText({ text = "RESET ALL", alignment = "left middle", translate = { x = 15, y = 30 } }, 400, 60, theme.buttonReset, theme.text) then
+	if interface.buttonText({ text = "RESET ALL", description = "RESET ALL,Resets all settings for all modules.", alignment = "left middle", translate = { x = 15, y = 30 } }, 400, 60, theme.buttonReset, theme.text) then
 		for _, module in pairs(modules) do
 			module.options = Clone(module.default)
 			options[module.name] = Clone(module.default)

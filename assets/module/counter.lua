@@ -111,17 +111,17 @@ counter.interface = function()
 		interface.text({ text = "GENERAL", alignment = "center middle", translate = { x = 200, y = 20 }, font = "MOD/assets/font/libsans_bold.ttf" }, theme.text)
 		UiTranslate(0, 40)
 		
-		if interface.buttonSwitch("COUNTER", 400, 60, counter.options.enabled) then
+		if interface.buttonSwitch({ text = "COUNTER", description = "COUNTER,Enable/disable this module." }, 400, 60, counter.options.enabled) then
 			counter.options.enabled = not counter.options.enabled
 		end
 		UiTranslate(0, 60)
 		
-		if interface.buttonSwitch("BACKGROUND", 400, 60, counter.options.background) then
+		if interface.buttonSwitch({ text = "BACKGROUND", description = "BACKGROUND,Enable/disable the counter background." }, 400, 60, counter.options.background) then
 			counter.options.background = not counter.options.background
 		end
 		UiTranslate(0, 60)
 
-		if interface.buttonText({ text = "RESET", alignment = "left middle", translate = { x = 15, y = 30 } }, 400, 60, theme.buttonReset, theme.text) then
+		if interface.buttonText({ text = "RESET", description = "RESET,Resets all settings for the current module.", alignment = "left middle", translate = { x = 15, y = 30 } }, 400, 60, theme.buttonReset, theme.text) then
 			for name,value in pairs(counter.default) do
 				counter.options[name] = Clone(value)
 			end
@@ -134,32 +134,32 @@ counter.interface = function()
 		interface.text({ text = "FPS", alignment = "center middle", translate = { x = 200, y = 20 }, font = "MOD/assets/font/libsans_bold.ttf" }, theme.text)
 		UiTranslate(0, 40)
 
-		if interface.buttonSwitch("SHOW FPS", 400, 60, counter.options.frameCount) then
+		if interface.buttonSwitch({ text = "SHOW FPS", description = "SHOW FPS,Shows the current FPS." }, 400, 60, counter.options.frameCount) then
 			counter.options.frameCount = not counter.options.frameCount
 		end
 		UiTranslate(0, 60)
 		
-		if interface.buttonSwitch("SHOW MAX", 400, 60, counter.options.frameCountMax) then
+		if interface.buttonSwitch({ text = "SHOW MAX", description = "SHOW MAX,Shows the maximum FPS." }, 400, 60, counter.options.frameCountMax) then
 			counter.options.frameCountMax = not counter.options.frameCountMax
 		end
 		UiTranslate(0, 60)
 		
-		if interface.buttonSwitch("SHOW MIN", 400, 60, counter.options.frameCountMin) then
+		if interface.buttonSwitch({ text = "SHOW MIN", description = "SHOW MIN,Shows the minimum FPS." }, 400, 60, counter.options.frameCountMin) then
 			counter.options.frameCountMin = not counter.options.frameCountMin
 		end
 		UiTranslate(0, 60)
 
 		if options.general.experimental then
-			if interface.buttonSwitch("SHOW GRAPH", 400, 60, counter.options.graph) then
+			if interface.buttonSwitch({ text = "SHOW GRAPH", description = "SHOW GRAPH,Shows a graph for recent frame delays." }, 400, 60, counter.options.graph) then
 				counter.options.graph = not counter.options.graph
 			end
 			UiTranslate(0, 60)
 		end
 
-		counter.options.accuracy, accuracyHeld = interface.slider("ACCURACY", Round(counter.options.accuracy, 0, 0.5), 400, 60, 0, 5, theme.button, theme.background, nil, nil, accuracyHeld)
+		counter.options.accuracy, accuracyHeld = interface.slider({ text = "ACCURACY", description = "ACCURACY,How many decimals will be showed." }, Round(counter.options.accuracy, 0, 0.5), 400, 60, 0, 5, theme.button, theme.background, nil, nil, accuracyHeld)
 		UiTranslate(0, 60)
 		
-		counter.options.frequency, frequencyHeld = interface.slider("FREQUENCY", Round(counter.options.frequency, 0, 0.5), 400, 60, 0, 60, theme.button, theme.background, nil, nil, frequencyHeld)
+		counter.options.frequency, frequencyHeld = interface.slider({ text = "FREQUENCY", description = "FREQUENCY,How many frames until value is updated." }, Round(counter.options.frequency, 0, 0.5), 400, 60, 0, 60, theme.button, theme.background, nil, nil, frequencyHeld)
 		UiTranslate(0, 90)
 	UiPop()
 	UiTranslate(430, 0)
@@ -171,7 +171,7 @@ counter.interface = function()
 		interface.text({ text = "BODY", alignment = "center middle", translate = { x = 200, y = 20 }, font = "MOD/assets/font/libsans_bold.ttf" }, {1, 1, 1, 1})
 		UiTranslate(0, 40)
 
-		if interface.buttonSwitch("SHOW BODY", 400, 60, counter.options.bodyCount) then
+		if interface.buttonSwitch({ text = "SHOW BODY", description = "SHOW BODY,Show how many bodies exist in the level." }, 400, 60, counter.options.bodyCount) then
 			counter.options.bodyCount = not counter.options.bodyCount
 		end
 		UiTranslate(0, 90)
@@ -182,7 +182,7 @@ counter.interface = function()
 		interface.text({ text = "SHAPE", alignment = "center middle", translate = { x = 200, y = 20 }, font = "MOD/assets/font/libsans_bold.ttf" }, {1, 1, 1, 1})
 		UiTranslate(0, 40)
 
-		if interface.buttonSwitch("SHOW SHAPE", 400, 60, counter.options.shapeCount) then
+		if interface.buttonSwitch({ text = "SHOW SHAPE", description = "SHOW SHAPE,Show how many shapes exist in the level." }, 400, 60, counter.options.shapeCount) then
 			counter.options.shapeCount = not counter.options.shapeCount
 		end
 		UiTranslate(0, 90)
@@ -192,7 +192,7 @@ counter.interface = function()
 		interface.text({ text = "FIRE", alignment = "center middle", translate = { x = 200, y = 20 }, font = "MOD/assets/font/libsans_bold.ttf" }, {1, 1, 1, 1})
 		UiTranslate(0, 40)
 
-		if interface.buttonSwitch("SHOW FIRE", 400, 60, counter.options.fireCount) then
+		if interface.buttonSwitch({ text = "SHOW FIRE", description = "SHOW FIRE,Show how many instances of fire exist in the level." }, 400, 60, counter.options.fireCount) then
 			counter.options.fireCount = not counter.options.fireCount
 		end
 		UiTranslate(0, 90)
@@ -203,7 +203,7 @@ counter.interface = function()
 		-- Text
 		interface.color(theme.background)
 		UiRect(400, 40)
-		interface.text({ text = "TEXT", alignment = "center middle", translate = { x = 200, y = 20 }, font = "MOD/assets/font/libsans_bold.ttf" }, {1, 1, 1, 1})
+		interface.text({ text = "TEXT", description = "TEXT COLOR,Set the color of all text in the counter.", alignment = "center middle", translate = { x = 200, y = 20 }, font = "MOD/assets/font/libsans_bold.ttf" }, {1, 1, 1, 1})
 		UiTranslate(0, 40)
 
 		counter.options.textColor = interface.colorPicker(counter.options.textColor, 400/480)
@@ -212,7 +212,7 @@ counter.interface = function()
 		-- Background
 		interface.color(theme.background)
 		UiRect(400, 40)
-		interface.text({ text = "BACKGROUND", alignment = "center middle", translate = { x = 200, y = 20 }, font = "MOD/assets/font/libsans_bold.ttf" }, {1, 1, 1, 1})
+		interface.text({ text = "BACKGROUND", description = "BACK COLOR,Set the color of the background in the counter.", alignment = "center middle", translate = { x = 200, y = 20 }, font = "MOD/assets/font/libsans_bold.ttf" }, {1, 1, 1, 1})
 		UiTranslate(0, 40)
 
 		counter.options.backColor = interface.colorPicker(counter.options.backColor, 400/480)

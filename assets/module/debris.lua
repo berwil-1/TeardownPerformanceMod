@@ -9,6 +9,7 @@ end
 local stabilized = {}
 local forbiddenArea = FindTrigger("perfmod-disable-debris", true)
 local forbidden = IndexElements(Concat(Concat(FindBodies("target", true), FindBodies("alarmbox", true)), FindBodies("escapevehicle", true)))
+
 debris.shape = function(shape)
 	local smart = options.debris.smart
 
@@ -115,17 +116,17 @@ debris.interface = function()
 			interface.text({ text = "GENERAL", alignment = "center middle", translate = { x = 200, y = 20 }, font = "MOD/assets/font/libsans_bold.ttf" }, theme.text)
 			UiTranslate(0, 40)
 
-			if interface.buttonSwitch("DEBRIS", 400, 60, debris.options.enabled) then
+			if interface.buttonSwitch({ text = "DEBRIS", description = "DEBRIS,Enable/disable this module.", alignment = "left middle", translate = { x = 15, y = 30 } }, 400, 60, debris.options.enabled) then
 				debris.options.enabled = not debris.options.enabled
 			end
 			UiTranslate(0, 60)
 
-			if interface.buttonSwitch("SMART", 400, 60, options.debris.smart) then
+			if interface.buttonSwitch({ text = "SMART", description = "SMART (FASTER),Enable to only remove debris when FPS is low.", alignment = "left middle", translate = { x = 15, y = 30 } }, 400, 60, options.debris.smart) then
 				options.debris.smart = not options.debris.smart
 			end
 			UiTranslate(0, 60)
 
-			if interface.buttonText({ text = "RESET", alignment = "left middle", translate = { x = 15, y = 30 } }, 400, 60, theme.buttonReset, theme.text) then
+			if interface.buttonText({ text = "RESET", description = "RESET,Resets all settings for the current module.", alignment = "left middle", translate = { x = 15, y = 30 } }, 400, 60, theme.buttonReset, theme.text) then
 				for name,value in pairs(debris.default) do
 					debris.options[name] = Clone(value)
 				end
@@ -139,20 +140,20 @@ debris.interface = function()
 			interface.text({ text = "CLEANER", alignment = "center middle", translate = { x = 200, y = 20 }, font = "MOD/assets/font/libsans_bold.ttf" }, theme.text)
 			UiTranslate(0, 40)
 			
-			if interface.buttonSwitch("CLEANER", 400, 60, debris.options.cleaner) then
+			if interface.buttonSwitch({ text = "DEBRIS", description = "DEBRIS (FASTER),Enable to remove all debris below set size.", alignment = "left middle", translate = { x = 15, y = 30 } }, 400, 60, debris.options.cleaner) then
 				debris.options.cleaner = not debris.options.cleaner
 			end
 			UiTranslate(0, 60)
 			
-			if interface.buttonSwitch("PARTICLE", 400, 60, debris.options.particle) then
+			if interface.buttonSwitch({ text = "PARTICLE", description = "PARTICLE (SLOW),Enable to replace removed debris with particles.", alignment = "left middle", translate = { x = 15, y = 30 } }, 400, 60, debris.options.particle) then
 				debris.options.particle = not debris.options.particle
 			end
 			UiTranslate(0, 60)
 			
-			debris.options.cleanerVoxelCount, cleanerVoxelCountHeld = interface.slider("VOXEL COUNT", Round(debris.options.cleanerVoxelCount, -1, 0.5), 400, 60, 0, 1000, theme.button, theme.background, nil, nil, cleanerVoxelCountHeld)
+			debris.options.cleanerVoxelCount, cleanerVoxelCountHeld = interface.slider({ text = "VOXEL COUNT", description = "SIZE (FAST - FASTER),Higher values remove larger debris making the game run faster.", alignment = "left middle", translate = { x = 15, y = 30 } }, Round(debris.options.cleanerVoxelCount, -1, 0.5), 400, 60, 0, 1000, theme.button, theme.background, nil, nil, cleanerVoxelCountHeld)
 			UiTranslate(0, 60)
 			
-			debris.options.particleAmount, particleAmountHeld = interface.slider("PARTICLE AMOUNT", Round(debris.options.particleAmount, 0, 0.5), 400, 60, 0, 10, theme.button, theme.background, nil, nil, particleAmountHeld)
+			debris.options.particleAmount, particleAmountHeld = interface.slider({ text = "PARTICLE COUNT", description = "COUNT (SLOW - SLOWER),Higher values adds more particles for each removed debris (reducing artifacts while making the game run slower).", alignment = "left middle", translate = { x = 15, y = 30 } }, Round(debris.options.particleAmount, 0, 0.5), 400, 60, 0, 10, theme.button, theme.background, nil, nil, particleAmountHeld)
 			UiTranslate(0, 90)
 		UiPop()
 		UiTranslate(430, 0)
@@ -165,7 +166,7 @@ debris.interface = function()
 			interface.text({ text = "STABILIZER", alignment = "center middle", translate = { x = 200, y = 20 }, font = "MOD/assets/font/libsans_bold.ttf" }, theme.text)
 			UiTranslate(0, 40)
 			
-			if interface.buttonSwitch("STABILIZER", 400, 60, debris.options.stabilizer) then
+			if interface.buttonSwitch({ text = "STABILIZER", description = "STABILIZER (FAST),Enable to reduce the movement of debris.", alignment = "left middle", translate = { x = 15, y = 30 } }, 400, 60, debris.options.stabilizer) then
 				if options.debris.stabilizer then
 					for body in pairs(stabilized) do
 						SetBodyDynamic(body, true)
@@ -178,14 +179,14 @@ debris.interface = function()
 			end
 			UiTranslate(0, 60)
 			
-			debris.options.stabilizerVoxelCount, stabilizerVoxelCountHeld = interface.slider("VOXEL COUNT", Round(debris.options.stabilizerVoxelCount, -1, 0.5), 400, 60, 0, 1000, theme.button, theme.background, nil, nil, stabilizerVoxelCountHeld)
+			debris.options.stabilizerVoxelCount, stabilizerVoxelCountHeld = interface.slider({ text = "VOXEL COUNT", description = "SIZE (FAST - FASTER),Higher values stabilize larger debris making the game run faster.", alignment = "left middle", translate = { x = 15, y = 30 } }, Round(debris.options.stabilizerVoxelCount, -1, 0.5), 400, 60, 0, 1000, theme.button, theme.background, nil, nil, stabilizerVoxelCountHeld)
 			UiTranslate(0, 60)
 			
 			if options.general.advanced then
-			debris.options.stabilizerRadius, stabilizerRadiusHeld = interface.slider("RADIUS", Round(debris.options.stabilizerRadius, 0, 0.5), 400, 60, 0, 100, theme.button, theme.background, nil, nil, stabilizerRadiusHeld)
+			debris.options.stabilizerRadius, stabilizerRadiusHeld = interface.slider({ text = "RADIUS", description = "RADIUS (FAST - SLOWER),Radius from the player where debris will start to be stabilized.", alignment = "left middle", translate = { x = 15, y = 30 } }, Round(debris.options.stabilizerRadius, 0, 0.5), 400, 60, 0, 100, theme.button, theme.background, nil, nil, stabilizerRadiusHeld)
 			UiTranslate(0, 60)
 			
-			debris.options.stabilizerForce, stabilizerForceHeld = interface.slider("FORCE", Round(debris.options.stabilizerForce, 2, 0.005), 400, 60, 0, 1, theme.button, theme.background, nil, nil, stabilizerForceHeld)
+			debris.options.stabilizerForce, stabilizerForceHeld = interface.slider({ text = "FORCE", description = "FORCE (FAST - FASTER),Objects with velocity of this size or lower will be stabilized.", alignment = "left middle", translate = { x = 15, y = 30 } }, Round(debris.options.stabilizerForce, 2, 0.005), 400, 60, 0, 1, theme.button, theme.background, nil, nil, stabilizerForceHeld)
 			UiTranslate(0, 60)
 			end
 
@@ -196,15 +197,15 @@ debris.interface = function()
 			UiRect(400, 40)
 			interface.text({ text = "COLLIDER", alignment = "center middle", translate = { x = 200, y = 20 }, font = "MOD/assets/font/libsans_bold.ttf" }, theme.text)
 			UiTranslate(0, 40)
-			if interface.buttonSwitch("COLLIDER", 400, 60, debris.options.collider) then
+			if interface.buttonSwitch({ text = "COLLIDER", description = "COLLIDER (FASTER),Enable to remove collision of debris.", alignment = "left middle", translate = { x = 15, y = 30 } }, 400, 60, debris.options.collider) then
 				debris.options.collider = not debris.options.collider
 			end
 			UiTranslate(0, 60)
-			if interface.buttonSwitch("COLLIDE LEVEL", 400, 60, debris.options.collideLevel) then
+			if interface.buttonSwitch({ text = "COLLIDER LEVEL", description = "COLLIDER LEVEL (FASTEST),Enable to remove debris collisions with the world.", alignment = "left middle", translate = { x = 15, y = 30 } }, 400, 60, debris.options.collideLevel) then
 				debris.options.collideLevel = not debris.options.collideLevel
 			end
 			UiTranslate(0, 60)
-			debris.options.colliderVoxelCount, colliderVoxelCountHeld = interface.slider("VOXEL COUNT", Round(debris.options.colliderVoxelCount, -1, 0.5), 400, 60, 0, 1000, theme.button, theme.background, nil, nil, colliderVoxelCountHeld)
+			debris.options.colliderVoxelCount, colliderVoxelCountHeld = interface.slider({ text = "VOXEL COUNT", description = "SIZE (FAST - FASTER),Higher values stabilize larger debris making the game run faster.", alignment = "left middle", translate = { x = 15, y = 30 } }, Round(debris.options.colliderVoxelCount, -1, 0.5), 400, 60, 0, 1000, theme.button, theme.background, nil, nil, colliderVoxelCountHeld)
 			UiTranslate(0, 90)
 		UiPop()
 	UiPop()

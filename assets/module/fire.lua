@@ -60,13 +60,13 @@ fire.interface = function()
 		interface.text({ text = "GENERAL", alignment = "center middle", translate = { x = 200, y = 20 }, font = "MOD/assets/font/libsans_bold.ttf" }, {1, 1, 1, 1})
 		UiTranslate(0, 40)
 
-		if interface.buttonSwitch("FIRE", 400, 60, fire.options.enabled) then
+		if interface.buttonSwitch({ text = "FIRE", description = "FIRE,Enable/disable this module.", alignment = "left middle", translate = { x = 15, y = 30 } }, 400, 60, fire.options.enabled) then
 			if fire.options.enabled then fire.disable() end
 			fire.options.enabled = not fire.options.enabled
 		end
 		UiTranslate(0, 60)
 
-		if interface.buttonText({ text = "RESET", alignment = "left middle", translate = { x = 15, y = 30 } }, 400, 60, theme.buttonReset, theme.text) then
+		if interface.buttonText({ text = "RESET", description = "RESET,Resets all settings for the current module.", alignment = "left middle", translate = { x = 15, y = 30 } }, 400, 60, theme.buttonReset, theme.text) then
 			for name,value in pairs(fire.default) do
 				fire.options[name] = Clone(value)
 			end
@@ -78,13 +78,13 @@ fire.interface = function()
 		UiRect(400, 40)
 		interface.text({ text = "FIRE", alignment = "center middle", translate = { x = 200, y = 20 }, font = "MOD/assets/font/libsans_bold.ttf" }, {1, 1, 1, 1})
 		UiTranslate(0, 40)
-		if interface.buttonSwitch("PERFORMANCE", 400, 60, fire.options.performance) then
+		if interface.buttonSwitch({ text = "PERFORMANCE", description = "PERF FIRE (FAST),Visual (more performant) copy of fire, lacks basic features.", alignment = "left middle", translate = { x = 15, y = 30 } }, 400, 60, fire.options.performance) then
 			fire.options.performance = not fire.options.performance
 		end
 		UiTranslate(0, 60)
-		fire.options.fireLimit, fireLimitHeld = interface.slider("LIMIT", Round(fire.options.fireLimit, -1, 0.5), 400, 60, 0, 2000, theme.button, theme.background, nil, nil, fireLimitHeld)
+		fire.options.fireLimit, fireLimitHeld = interface.slider({ text = "LIMIT", description = "LIMIT (FASTER - SLOWER),The amount of fire instances that can be in the world where 0 is no fire at all, only applies while this module is enabled.", alignment = "left middle", translate = { x = 15, y = 30 } }, Round(fire.options.fireLimit, -1, 0.5), 400, 60, 0, 2000, theme.button, theme.background, nil, nil, fireLimitHeld)
 		UiTranslate(0, 60)
-		fire.options.fireSpread, fireSpreadHeld = interface.slider("SPREAD", Round(fire.options.fireSpread, 0, 0.5), 400, 60, 0, 100, theme.button, theme.background, nil, nil, fireSpreadHeld)
+		fire.options.fireSpread, fireSpreadHeld = interface.slider({ text = "SPREAD", description = "SPREAD (FASTER - SLOWER),How fast fire should spread where 0 is not at all, only applies while this module is enabled.", alignment = "left middle", translate = { x = 15, y = 30 } }, Round(fire.options.fireSpread, 0, 0.5), 400, 60, 0, 100, theme.button, theme.background, nil, nil, fireSpreadHeld)
 	UiPop()
 end
 

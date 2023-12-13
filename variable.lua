@@ -19,7 +19,7 @@
 
 name = "Performance Mod"
 author = "CoolJWB"
-version = 3.0
+version = 3.1
 
 options = {
 	general = {
@@ -88,7 +88,7 @@ options = {
 	},
 	render = {
 		enabled = false,
-		renderDistance = 4
+		renderDistance = 2
 	}
 }
 local default = Clone(options)

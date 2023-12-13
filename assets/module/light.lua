@@ -38,13 +38,13 @@ light.interface = function()
 		interface.text({ text = "GENERAL", alignment = "center middle", translate = { x = 200, y = 20 }, font = "MOD/assets/font/libsans_bold.ttf" }, {1, 1, 1, 1})
 		UiTranslate(0, 40)
 
-		if interface.buttonSwitch("LIGHT", 400, 60, light.options.enabled) then
+		if interface.buttonSwitch({ text = "LIGHT", description = "LIGHT,Enable/disable this module.", alignment = "left middle", translate = { x = 15, y = 30 } }, 400, 60, light.options.enabled) then
 			if light.options.enabled then light.disable() end
 			light.options.enabled = not light.options.enabled
 		end
 		UiTranslate(0, 60)
 
-		if interface.buttonText({ text = "RESET", alignment = "left middle", translate = { x = 15, y = 30 } }, 400, 60, theme.buttonReset, theme.text) then
+		if interface.buttonText({ text = "RESET", description = "RESET,Resets all settings for the current module.", alignment = "left middle", translate = { x = 15, y = 30 } }, 400, 60, theme.buttonReset, theme.text) then
 			for name,value in pairs(light.default) do
 				light.options[name] = Clone(value)
 			end
@@ -56,11 +56,11 @@ light.interface = function()
 		UiRect(400, 40)
 		interface.text({ text = "LAMP", alignment = "center middle", translate = { x = 200, y = 20 }, font = "MOD/assets/font/libsans_bold.ttf" }, {1, 1, 1, 1})
 		UiTranslate(0, 40)
-		if interface.buttonSwitch("LAMP", 400, 60, options.light.lamp) then
+		if interface.buttonSwitch({ text = "LAMP", description = "LAMP,Modify all lamps in the world.", alignment = "left middle", translate = { x = 15, y = 30 } }, 400, 60, options.light.lamp) then
 			options.light.lamp = not options.light.lamp
 		end
 		UiTranslate(0, 60)
-		light.options.lampLimit, lampLimitHeld = interface.slider("LIMIT", Round(light.options.lampLimit, 1, 0.05), 400, 60, 0, 10, theme.button, theme.background, nil, nil, lampLimitHeld)
+		light.options.lampLimit, lampLimitHeld = interface.slider({ text = "LIMIT", description = "LIMIT (FASTER - SLOWER),Decides the intenity of all lamps.", alignment = "left middle", translate = { x = 15, y = 30 } }, Round(light.options.lampLimit, 1, 0.05), 400, 60, 0, 10, theme.button, theme.background, nil, nil, lampLimitHeld)
 		UiTranslate(0, 60)
 
 		light.options.lampColor = interface.colorPicker(light.options.lampColor, 400/480)
@@ -71,6 +71,6 @@ light.interface = function()
 		UiRect(400, 40)
 		interface.text({ text = "SHADOW", alignment = "center middle", translate = { x = 200, y = 20 }, font = "MOD/assets/font/libsans_bold.ttf" }, {1, 1, 1, 1})
 		UiTranslate(0, 40)
-		light.options.shadowLimit, shadowLimitHeld = interface.slider("LIMIT", Round(light.options.shadowLimit, 0, 0.5), 400, 60, 0, 128, theme.button, theme.background, nil, nil, shadowLimitHeld)
+		light.options.shadowLimit, shadowLimitHeld = interface.slider({ text = "LIMIT", description = "LIMIT (FASTER - SLOWER),Decides the distance shadows are casted.", alignment = "left middle", translate = { x = 15, y = 30 } }, Round(light.options.shadowLimit, 0, 0.5), 400, 60, 0, 128, theme.button, theme.background, nil, nil, shadowLimitHeld)
 	UiPop()
 end

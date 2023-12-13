@@ -43,19 +43,28 @@ interface.button = function(width, height, colorNormal, colorPressed)
 		UiRect(width, height)
 	UiPop()
 
-	return pressed, down
+	return pressed, down, inside
 end
 
 interface.buttonText = function(text, width, height, backColorNormal, textColorNormal, backColorPressed, textColorPressed)
-	local pressed, down = interface.button(width, height, backColorNormal, backColorPressed)
+	local pressed, down, inside = interface.button(width, height, backColorNormal, backColorPressed)
 	interface.text(text, textColorNormal, textColorPressed, pressed, down)
 
-	return pressed, down
+	if inside and text.description then
+		descriptionTitle, descriptionText = text.description:match("([^,]+),(.+)")
+	end
+
+	return pressed, down, inside
 end
 
 interface.buttonSwitch = function(text, width, height, state)
-	local pressed, down = interface.buttonText({ text = state and "ENABLED" or "DISABLED", alignment = "right middle", translate = { x = width - 15, y = height / 2 } }, width, height, theme.button, state and theme.textEnabled or theme.textDisabled, theme.buttonPressed)
-	interface.text({ text = text, alignment = "left middle", translate = { x = 15, y = height / 2 } }, theme.text)
+	local pressed, down, inside = interface.buttonText({ text = state and "ENABLED" or "DISABLED", alignment = "right middle", translate = { x = width - 15, y = height / 2 } }, width, height, theme.button, state and theme.textEnabled or theme.textDisabled, theme.buttonPressed)
+	interface.text({ text = text.text, alignment = "left middle", translate = { x = 15, y = height / 2 } }, theme.text)
+
+	if inside then
+		descriptionTitle, descriptionText = text.description:match("([^,]+),(.+)")
+	end
+
 	return pressed, down
 end
 
@@ -80,8 +89,13 @@ interface.slider = function(text, value, width, height, min, max, backColorNorma
 		UiRect(16, height)
 	UiPop()
 
-	interface.text({ text = text, alignment = "left middle", translate = { x = 15, y = height / 2 } }, theme.text)
+	interface.text({ text = text.text, alignment = "left middle", translate = { x = 15, y = height / 2 } }, theme.text)
 	interface.text({ text = value, alignment = "right middle", translate = { x = width - 15, y = height / 2 } }, theme.text)
+
+	if inside then
+		descriptionTitle, descriptionText = text.description:match("([^,]+),(.+)")
+	end
+
 	return min + widthToValue * x, down
 end
 
