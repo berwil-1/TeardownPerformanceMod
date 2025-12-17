@@ -1,1 +1,0 @@
-local libsans = "MOD/assets/interface/font/libsans.ttf"
