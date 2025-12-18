@@ -1,4 +1,4 @@
-#include "../exts/umf/umf_utils.lua"
+#include "../util/lua.lua"
 
 MOD_NAME = "Performance Mod"
 AUTHOR = "CoolJWB"

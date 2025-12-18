@@ -1,3 +1,7 @@
+#include "../settings/settings.lua"
+
+local Settings = getSettings()
+
 local Modules = {
     { settings = Settings.mod, data = {} },
     { settings = Settings.overlay, data = {} },
@@ -8,4 +12,7 @@ local Modules = {
 }
 
 function setupModules()
+    for idx, md in pairs(Modules) do
+        DebugWatch(idx, md)
+    end
 end

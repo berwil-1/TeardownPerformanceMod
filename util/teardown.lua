@@ -1,5 +1,9 @@
 #include "math.lua"
 
+function PrintDebug(text)
+	DebugPrint(text)
+end
+
 function GetBodies(min, max, requirements)
 	QueryRequire(require and require or "")
 	return QueryAabbBodies(min and min or VEC_MIN, 
