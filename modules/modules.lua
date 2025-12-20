@@ -1,18 +1,31 @@
 #include "../settings/settings.lua"
+#include "../util/debug.lua"
+
+#include "level/fire.lua"
+#include "module.lua"
 
 local Settings = getSettings()
+local Modules = {}
 
-local Modules = {
-    { settings = Settings.mod, data = {} },
-    { settings = Settings.overlay, data = {} },
-    { settings = Settings.debris, data = {} },
-    { settings = Settings.fire, data = {} },
-    { settings = Settings.light, data = {} },
-    { settings = Settings.fog, data = {} }
-}
+function dispatchModules(method, ...)
+    Debug("dispatchModules() called")
+    for _, module in pairs(Modules) do
+        if module:enabled() and module[method] then
+            module[method](module, ...)
+        end
+    end
+end
 
 function setupModules()
-    for idx, md in pairs(Modules) do
-        DebugWatch(idx, md)
-    end
+    Debug("setupModules() called")
+    
+    -- Setup all Modules with parameters
+    Modules = { 
+        --Module.new("General", Settings.mod),
+        --Module.new("Overlay", Settings.overlay),
+        --Module.new("Debris", Settings.debris),
+        FireModule.new(Settings.fire),
+        --Module.new("Light", Settings.light),
+        --Module.new("Fog", Settings.fog),
+    }
 end

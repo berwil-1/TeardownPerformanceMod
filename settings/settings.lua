@@ -5,7 +5,7 @@
 local Settings = getSettingsDefault()
 
 function setupSettings()
-    Debug("setupSettings called")
+    Debug("setupSettings() called")
 
     local hasVersion = HasKey("savegame.mod.version")
     local hasOldVersion = GetFloat("savegame.mod.version") < 3.0

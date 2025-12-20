@@ -1,13 +1,9 @@
 function drawMenu()
     UiMakeInteractive()
-
-    -- Setup defaults for the menues
-    setupTextDefaults()
-
-    
 end
 
 function setupTextDefaults()
+    Debug("setupTextDefaults() called")
     UiFont("bold.ttf", 72)
     UiAlign("center middle") 
 end

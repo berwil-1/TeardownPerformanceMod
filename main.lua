@@ -6,22 +6,25 @@
 #include "util/debug.lua"
 
 function server.init()
-    Debug("server.init called")
+    Debug("server.init() called")
     
     setupSettings()
     setupModules()
 
+    dispatchModules("init")
+    --setupTextDefaults()
 end
 
 function server.tick(dt)
+    --serverTickModules(dt)
 end
 
 function server.update(dt)
-    local playerId = GetLocalPlayer()
+    --serverUpdateModules(dt)
 end
 
 function client.init()
-    Debug("client.init called")
+    Debug("client.init() called")
 end
 
 function client.tick(dt)
