@@ -54,9 +54,9 @@ function drawMenuBackground()
         UiTranslate(Menu.top_left_x, Menu.top_left_y)
         UiRoundedRect(Menu.width, Menu.height, 10)
 
+        UiClipRect(Menu.width, Menu.height / 10)
         UiColor(0.0, 0.0, 0.0, 0.8)
-        --UiTranslate(0, -Menu.height / 2 + Menu.height / 20)
-        UiRoundedRect(Menu.width, Menu.height / 10, 10)
+        UiRoundedRect(Menu.width, Menu.height / 10 + 10, 10)
     UiPop()
 end
 
