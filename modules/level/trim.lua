@@ -1,0 +1,2 @@
+-- Trim away empty regions of shape, thus potentially making it smaller. If the size of the shape changes, the shape will be automatically moved to preserve the shape content in body space. The offset vector for this translation is returned in shape local space.
+-- https://teardowngame.com/experimental/api.html#TrimShape

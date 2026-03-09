@@ -5,7 +5,7 @@ AUTHOR = "CoolJWB"
 VERSION = 4.0
 
 local DEFAULT_SETTINGS = {
-    mod = {
+    general = {
         enabled = true,
         keybind = "p",
         visible = false,
@@ -58,8 +58,8 @@ local DEFAULT_SETTINGS = {
     light = {
         enabled = false,
         shadowLimit = 32,
-        lampLimit = 1,
-        lampColor = { 1, 1, 1, 1 },
+        lightIntensity = 1,
+        lightColor = { 1, 1, 1, 1 },
     },
     fog = {
         enabled = false,

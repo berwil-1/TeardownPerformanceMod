@@ -1,21 +1,15 @@
-local count = 0
-
 function Debug(text)
-    DebugWatch(GetTime() .. " " .. count, "[DEBUG] " .. text)
-    count = count + 1
+    --DebugPrint("[DEBUG] " .. text)
 end
 
 function Info(text)
-    DebugWatch(GetTime() .. " " .. count, "[INFO] " .. text)
-    count = count + 1
+    DebugPrint("[INFO] " .. text)
 end
 
 function Warn(text)
-    DebugWatch(GetTime() .. " " .. count, "[WARN] " .. text)
-    count = count + 1
+    DebugPrint("[WARN] " .. text)
 end
 
 function Error(text)
-    DebugWatch(GetTime() .. " " .. count, "[ERROR] " .. text)
-    count = count + 1
+    DebugPrint("[ERROR] " .. text)
 end

@@ -24,6 +24,9 @@ function Module:init()
     Debug("Module:init() in " .. self.name)
 end
 
+function Module:tick(dt)
+end
+
 function Module:update(dt)
 end
 

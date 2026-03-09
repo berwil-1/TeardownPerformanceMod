@@ -17,14 +17,25 @@ end
 
 function FireModule:init()
     Debug("FireModule:init()")
+    self.data.fireCount = GetFireCount()
+end
+
+function FireModule:tick(dt)
+    Debug("FireModule:tick()")
+    if self.data.fireCount ~= GetFireCount() then
+        dispatchModules("fireCountUpdate", GetFireCount())
+    end
+    self.data.fireCount = GetFireCount()
 end
 
 function FireModule:fireCountUpdate(count)
-    if count >= self.fireLimit then
-        
+    if count >= self.settings.fireLimit then
+        Warn("Fire amount is " .. count)
+    else
+        Info("Fire amount is " .. count)
     end
 end
 
 function FireModule:enabled()
-    return true
+    return false
 end

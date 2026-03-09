@@ -2,13 +2,13 @@
 #include "../util/debug.lua"
 
 #include "level/fire.lua"
+#include "level/debris.lua"
 #include "module.lua"
 
 local Settings = getSettings()
 local Modules = {}
 
 function dispatchModules(method, ...)
-    Debug("dispatchModules() called")
     for _, module in pairs(Modules) do
         if module:enabled() and module[method] then
             module[method](module, ...)
@@ -21,11 +21,8 @@ function setupModules()
     
     -- Setup all Modules with parameters
     Modules = { 
-        --Module.new("General", Settings.mod),
-        --Module.new("Overlay", Settings.overlay),
-        --Module.new("Debris", Settings.debris),
+        --Module.new("General", Settings.general),
         FireModule.new(Settings.fire),
-        --Module.new("Light", Settings.light),
-        --Module.new("Fog", Settings.fog),
+        DebrisModule.new(Settings.debris),
     }
 end

@@ -1,0 +1,1 @@
+-- Using DETOUR and dofile("path/to/file.lua")  

@@ -17,3 +17,17 @@ end
 
 function DebrisModule:draw()
 end
+
+function DebrisModule:shape(shape)
+    local voxels = GetShapeVoxelCount(shape)
+	local broken = IsShapeBroken(shape)
+
+    --if settings.general.debug then
+    if broken and voxels < 50 then
+		DrawShapeOutline(shape, 1, 1, 1, 1)
+	end
+end
+
+function DebrisModule:enabled()
+    return false
+end

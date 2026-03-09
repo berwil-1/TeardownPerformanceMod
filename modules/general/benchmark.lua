@@ -1,0 +1,2 @@
+-- A level with some heavy elements in it, with a benchmark score
+-- at the end of the camera flythrough
