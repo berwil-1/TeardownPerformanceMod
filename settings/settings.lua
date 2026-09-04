@@ -4,6 +4,25 @@
 
 local Settings = getSettingsDefault()
 
+local function mergeSettings(defaults, saved)
+    local merged = {}
+    for key, defaultValue in pairs(defaults) do
+        local savedValue = saved[key]
+        if type(defaultValue) == "table" then
+            if type(savedValue) == "table" then
+                merged[key] = mergeSettings(defaultValue, savedValue)
+            else
+                merged[key] = Clone(defaultValue)
+            end
+        elseif type(savedValue) == type(defaultValue) then
+            merged[key] = savedValue
+        else
+            merged[key] = defaultValue
+        end
+    end
+    return merged
+end
+
 function setupSettings()
     Debug("setupSettings() called")
 
@@ -17,7 +36,7 @@ function setupSettings()
     if (not hasVersion) or hasOldVersion or (not hasOptions) then
         Debug("Pre 3.0 settings system, clearing keys...")
         ClearKey("savegame.mod")
-        SetFloat("savegame.mod.version", version)
+        SetFloat("savegame.mod.version", VERSION)
         SetString("savegame.mod.options", util.serialize(Settings))
     end
 
@@ -26,12 +45,7 @@ function setupSettings()
     -- every game launch.
     if HasKey("savegame.mod.options") then
         Debug("Loading settings...")
-        local unserialized = util.unserialize(GetString("savegame.mod.options"))
-        
-        for name, setting in pairs(unserialized) do
-            Settings[name] = setting
-        end
-        Debug("Settings loaded!")
+        Settings = getSettings()
 
         SetFloat("savegame.mod.version", VERSION)
         SetString("savegame.mod.options", util.serialize(Settings))
@@ -40,7 +54,17 @@ function setupSettings()
 end
 
 function getSettings()
+    local unserialized = util.unserialize(GetString("savegame.mod.options"))
+
+    Settings = mergeSettings(getSettingsDefault(), unserialized)
+    Debug("Settings loaded!")
+
     return Settings
+end
+
+function saveSettings()
+    SetString("savegame.mod.options", util.serialize(Settings))
+    Debug("Settings updated.")
 end
 
 local function getSetting(path, default)

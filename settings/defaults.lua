@@ -13,6 +13,8 @@ local DEFAULT_SETTINGS = {
         speedrun = false,
         experimental = false,
         debug = false,
+        preset = "balanced",
+        uiScale = 1,
     },
     overlay = {
         enabled = false,

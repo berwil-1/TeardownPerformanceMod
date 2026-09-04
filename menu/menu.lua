@@ -1,12 +1,17 @@
 #include "../util/debug.lua"
+#include "../settings/settings.lua"
+#include "general.lua"
+#include "level.lua"
+#include "benchmark.lua"
+#include "render.lua"
 
 local Menu = {}
 
 local Pages = {
-    {id = "general", label = "General", icon = "MOD/assets/Settings.png"},
-    {id = "level",   label = "Level",   icon = "MOD/assets/Map.png"},
-    {id = "benchmark",   label = "Benchmark",   icon = "MOD/assets/Chart_Line.png"},
-    {id = "render", label = "Render", icon = "MOD/assets/Layers.png"},
+    {id = "general", label = "General", icon = "MOD/assets/Settings.png", func = drawGeneral},
+    {id = "level",   label = "Level",   icon = "MOD/assets/Map.png", func = drawLevel},
+    {id = "benchmark", label = "Benchmark", icon = "MOD/assets/Chart_Line.png", func = drawBenchmark},
+    {id = "render", label = "Render", icon = "MOD/assets/Layers.png", func = drawRender},
 }
 
 local activePageId = "general"
@@ -51,6 +56,7 @@ function drawMenu()
 
     UiMakeInteractive()
     drawMenuBackground()
+    UiScale(getSettings().general.uiScale)
     drawSidebar()
     drawContent()
 end
@@ -72,7 +78,7 @@ function drawSidebar()
         -- Sidebar fill
         UiPush()
             UiColor(Menu.sidebarColor)
-            UiRect(Menu.sidebar_width, Menu.screen_height)
+            UiRect(Menu.sidebar_width, Menu.screen_height * 2)
         UiPop()
 
         -- Right-edge divider line that separates sidebar from content
@@ -220,8 +226,6 @@ end
 function drawContentPlaceholder(page)
     UiPush()
         UiAlign("top left")
-        UiColor(Menu.textMutedColor)
-        UiFont("regular.ttf", 16)
-        UiText("Settings for " .. page.label .. " will appear here.")
+        page.func(Menu, page)
     UiPop()
 end

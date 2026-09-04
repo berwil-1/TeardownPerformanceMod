@@ -1,7 +1,7 @@
 #version 2
 
 #include "menu/menu.lua"
---#include "settings/settings.lua"
+#include "settings/settings.lua"
 #include "modules/modules.lua"
 #include "util/debug.lua"
 
@@ -44,12 +44,17 @@ end
 
 function client.init()
     Debug("client.init() called")
+    --setupMenu()
 end
 
 function client.tick(dt)
     local id = GetLocalPlayer()
 
-    if PauseMenuButton("Performance Mod", "main_bottom") or InputPressed("p", id) then
+    if PauseMenuButton("Performance Mod", "main_bottom") then
+        menuVisible = true
+    end
+
+    if InputPressed(getSettings().general.keybind, id) then
         menuVisible = not menuVisible
     end
 end
