@@ -1,8 +1,10 @@
 #include "../settings/settings.lua"
 #include "../util/debug.lua"
 
+#include "benchmark/benchmark.lua"
 #include "level/fire.lua"
 #include "level/debris.lua"
+#include "render/overlay.lua"
 #include "module.lua"
 
 local Settings = getSettings()
@@ -22,7 +24,9 @@ function setupModules()
     -- Setup all Modules with parameters
     Modules = { 
         --Module.new("General", Settings.general),
+        BenchmarkModule.new(Settings.benchmark),
         FireModule.new(Settings.fire),
         DebrisModule.new(Settings.debris),
+        OverlayModule.new(Settings.overlay)
     }
 end

@@ -16,8 +16,12 @@ local DEFAULT_SETTINGS = {
         preset = "balanced",
         uiScale = 1,
     },
+    benchmark = {
+        enabled = true,
+        best = 0,
+    },
     overlay = {
-        enabled = false,
+        enabled = true,
         position = { 0, 0 },
         size = 1,
         textSize = 16,

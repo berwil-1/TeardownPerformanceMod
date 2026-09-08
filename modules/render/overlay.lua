@@ -1,19 +1,21 @@
 #include "../../util/debug.lua"
 #include "../module.lua"
 
-Overlay = Module:extend()
+OverlayModule = Module:extend()
 
-function Overlay.new(settings)
-    local self = Module.new("Overlay", settings)
-    return setmetatable(self, Overlay)
+function OverlayModule.new(settings)
+    local self = Module.new("OverlayModule", settings)
+    return setmetatable(self, OverlayModule)
 end
 
-function Overlay:init()
-    Debug("Overlay:init()")
+function OverlayModule:init()
+    DebugPrint("awd")
+    Debug("OverlayModule:init()")
 end
 
-function Overlay:update(dt)
+function OverlayModule:update(dt)
+    DebugWatch("Fps", GetFps())
 end
 
-function Overlay:draw()
+function OverlayModule:draw()
 end
